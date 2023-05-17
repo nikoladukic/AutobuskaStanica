@@ -4,6 +4,8 @@
  */
 package rs.ac.bg.fon.ps.view.form;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author PC
@@ -12,9 +14,12 @@ public class FrmMain extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmMain
+     * @param parent
+     * @param modal
      */
-    public FrmMain(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+
+    public FrmMain() {
+        super(new JFrame(), true);
         initComponents();
     }
 
@@ -33,11 +38,11 @@ public class FrmMain extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 837, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
 
         pack();

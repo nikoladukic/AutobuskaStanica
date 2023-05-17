@@ -1,6 +1,5 @@
 package rs.ac.bg.fon.ps.communication;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 import rs.ac.bg.fon.ps.domain.*;
@@ -26,33 +25,19 @@ public class Communication {
         return instance;
     }
     
-    public User login(String username, String password) throws Exception {
-        User user=new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        Request request=new Request(Operation.LOGIN, user);
+   
+    public void kreirajAutobus(Autobus autobus) throws Exception {
+        Request request=new Request(Operation.KreirajAutobus, autobus);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
-            return (User)response.getResult();
+
         }else{
             throw response.getException();
         }
     }
-
-    public List<Manufacturer> getAllManufactures() throws Exception{
-        Request request=new Request(Operation.GET_ALL_MANUFACTURERS, null);
-        sender.send(request);
-        Response response=(Response)receiver.receive();
-        if(response.getException()==null){
-            return (List<Manufacturer>)response.getResult();
-        }else{
-            throw response.getException();
-        }
-    }
-
-    public void addProduct(Product product) throws Exception {
-        Request request=new Request(Operation.ADD_PRODUCT, product);
+    public void zapamtiAutobus(Autobus autobus) throws Exception {
+        Request request=new Request(Operation.ZapamtiAutobus, autobus);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
@@ -61,20 +46,28 @@ public class Communication {
             throw response.getException();
         }
     }
-
-    public List<Product> getAllProducts() throws Exception {
-        Request request=new Request(Operation.GET_ALL_PRODUCTS, null);
+    public List<Autobus> ucitajListuAutobusa() throws Exception{
+        Request request=new Request(Operation.UcitajListuAutobusa, null);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
-            return (List<Product>)response.getResult();
+            return (List<Autobus>)response.getResult();
         }else{
             throw response.getException();
         }
     }
-
-    public void deleteProduct(Product product) throws Exception {
-        Request request=new Request(Operation.DELETE_PRODUCT, product);
+    public List<Autobus> pretraziAutobus(String regBroj) throws Exception{
+        Request request=new Request(Operation.PretraziAutobus, null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<Autobus>)response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+    public void dodajMesto(Mesto mesto) throws Exception {
+        Request request=new Request(Operation.DodajMesto, mesto);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
@@ -83,9 +76,8 @@ public class Communication {
             throw response.getException();
         }
     }
-
-    public void editProduct(Product product) throws Exception {
-        Request request=new Request(Operation.EDIT_PRODUCT, product);
+    public void zapamtiMesto(Mesto mesto) throws Exception {
+        Request request=new Request(Operation.ZapamtiMesto, mesto);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
@@ -94,18 +86,101 @@ public class Communication {
             throw response.getException();
         }
     }
-
-    public void addInvoice(Invoice invoice) throws Exception {
-        Request request=new Request(Operation.ADD_INVOICE, invoice);
+    public List<Mesto> ucitajListuMesta() throws Exception{
+        Request request=new Request(Operation.UcitajListuMesta, null);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
-            Invoice newInvoice=(Invoice)response.getResult();
-            invoice.setId(newInvoice.getId());
+            return (List<Mesto>)response.getResult();
         }else{
             throw response.getException();
         }
     }
+     public void kreirajVozaca(Vozac vozac) throws Exception {
+        Request request=new Request(Operation.KreirajVozaca, vozac);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            
+        }else{
+            throw response.getException();
+        }
+    }
+    public void zapamtiVozaca(Vozac vozac) throws Exception {
+        Request request=new Request(Operation.ZapamtiVozaca, vozac);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            
+        }else{
+            throw response.getException();
+        }
+    }
+    public List<Vozac> nadjiVozaca(String jmbg) throws Exception{
+        Request request=new Request(Operation.NadjiVozaca, null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<Vozac>)response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+    public List<Vozac> ucitajListuVozaca() throws Exception{
+        Request request=new Request(Operation.UcitajListuVozaca, null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<Vozac>)response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+     public void kreirajVoznju(Voznja voznja) throws Exception {
+        Request request=new Request(Operation.KreirajVoznju, voznja);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            
+        }else{
+            throw response.getException();
+        }
+    }
+     public void zapamtiVoznju(Voznja voznja) throws Exception {
+        Request request=new Request(Operation.ZapamtiVoznju, voznja);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            
+        }else{
+            throw response.getException();
+        }
+    }
+    public List<Voznja> nadjiVoznju(Long voznjaID) throws Exception{
+        Request request=new Request(Operation.NadjiVoznju, null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<Voznja>)response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+    public List<Voznja> ucitajListuVoznji() throws Exception{
+        Request request=new Request(Operation.UcitajListuVoznji, null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<Voznja>)response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+    
+
+    
+
+   
     
     
     

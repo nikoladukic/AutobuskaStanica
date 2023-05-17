@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package rs.ac.bg.fon.ps.main;
 
-import java.net.Socket;
-import rs.ac.bg.fon.ps.view.form.FrmLogin;
+import rs.ac.bg.fon.ps.view.form.FrmMain;
 
 /**
  *
@@ -13,6 +9,6 @@ import rs.ac.bg.fon.ps.view.form.FrmLogin;
  */
 public class Main {
     public static void main(String[] args) {
-        new FrmLogin().setVisible(true);
+        new FrmMain().setVisible(true);
     }
 }
