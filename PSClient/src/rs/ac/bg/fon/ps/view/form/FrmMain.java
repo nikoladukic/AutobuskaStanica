@@ -1,23 +1,21 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
 package rs.ac.bg.fon.ps.view.form;
 
-import java.awt.event.ActionListener;
-import java.net.Socket;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import rs.ac.bg.fon.ps.view.form.util.FormMode;
-
-
-public class FrmMain extends javax.swing.JFrame {
+/**
+ *
+ * @author PC
+ */
+public class FrmMain extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmMain
      */
-    Socket socket = null;
-    public FrmMain() {
-        super("Projekat PS - Pocetna forma");
+    public FrmMain(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -29,137 +27,27 @@ public class FrmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCurrentUser = new javax.swing.JLabel();
-        jmenuBarMain = new javax.swing.JMenuBar();
-        jmenuProduct = new javax.swing.JMenu();
-        jmiProductNew = new javax.swing.JMenuItem();
-        jmiProductShowAll = new javax.swing.JMenuItem();
-        jmenuInvoice = new javax.swing.JMenu();
-        jmiInvoiceNew = new javax.swing.JMenuItem();
-        jmenuAbout = new javax.swing.JMenu();
-        jmiAboutSoftware = new javax.swing.JMenuItem();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblCurrentUser.setText("jLabel1");
-
-        jmenuProduct.setText("Product");
-        jmenuProduct.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmenuProductActionPerformed(evt);
-            }
-        });
-
-        jmiProductNew.setText("New");
-        jmiProductNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiProductNewActionPerformed(evt);
-            }
-        });
-        jmenuProduct.add(jmiProductNew);
-
-        jmiProductShowAll.setText("Show all");
-        jmiProductShowAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiProductShowAllActionPerformed(evt);
-            }
-        });
-        jmenuProduct.add(jmiProductShowAll);
-
-        jmenuBarMain.add(jmenuProduct);
-
-        jmenuInvoice.setText("Invoice");
-        jmenuInvoice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmenuInvoiceActionPerformed(evt);
-            }
-        });
-
-        jmiInvoiceNew.setText("New");
-        jmiInvoiceNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiInvoiceNewActionPerformed(evt);
-            }
-        });
-        jmenuInvoice.add(jmiInvoiceNew);
-
-        jmenuBarMain.add(jmenuInvoice);
-
-        jmenuAbout.setText("About");
-
-        jmiAboutSoftware.setText("Software");
-        jmenuAbout.add(jmiAboutSoftware);
-
-        jmenuBarMain.add(jmenuAbout);
-
-        setJMenuBar(jmenuBarMain);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblCurrentUser, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblCurrentUser)
-                .addContainerGap(254, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmenuProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuProductActionPerformed
-    }//GEN-LAST:event_jmenuProductActionPerformed
-
-    private void jmenuInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuInvoiceActionPerformed
-      
-    }//GEN-LAST:event_jmenuInvoiceActionPerformed
-
-    private void jmiProductNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductNewActionPerformed
-       new FrmProduct(this, true,FormMode.FORM_ADD).setVisible(true);
-    }//GEN-LAST:event_jmiProductNewActionPerformed
-
-    private void jmiInvoiceNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInvoiceNewActionPerformed
-   new FrmInvoice(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jmiInvoiceNewActionPerformed
-
-    private void jmiProductShowAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductShowAllActionPerformed
-        new FrmViewProducts(this, rootPaneCheckingEnabled).setVisible(true);
-    }//GEN-LAST:event_jmiProductShowAllActionPerformed
-
+    /**
+     * @param args the command line arguments
+     */
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jmenuAbout;
-    private javax.swing.JMenuBar jmenuBarMain;
-    private javax.swing.JMenu jmenuInvoice;
-    private javax.swing.JMenu jmenuProduct;
-    private javax.swing.JMenuItem jmiAboutSoftware;
-    private javax.swing.JMenuItem jmiInvoiceNew;
-    private javax.swing.JMenuItem jmiProductNew;
-    private javax.swing.JMenuItem jmiProductShowAll;
-    private javax.swing.JLabel lblCurrentUser;
     // End of variables declaration//GEN-END:variables
-
-    public void jmiProductNewAddActionListener(ActionListener actionListener) {
-        jmiProductNew.addActionListener(actionListener);
-    }
-
-    public void jmiProductShowAllActionListener(ActionListener actionListener) {
-        jmiProductShowAll.addActionListener(actionListener);
-    }
-
-    public JLabel getLblCurrentUser() {
-        return lblCurrentUser;
-    }
-
-    public JMenuItem getJmiInvoiceNew() {
-        return jmiInvoiceNew;
-    }
-    
 }
