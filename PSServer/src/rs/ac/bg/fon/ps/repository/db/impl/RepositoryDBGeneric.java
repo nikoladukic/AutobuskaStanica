@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import rs.ac.bg.fon.ps.domain.GenericEntity;
+import domain.GenericEntity;
 import rs.ac.bg.fon.ps.repository.db.DbConnectionFactory;
 import rs.ac.bg.fon.ps.repository.db.DbRepository;
 
