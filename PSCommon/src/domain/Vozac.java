@@ -19,6 +19,14 @@ public class Vozac {
     private Date datumRodjenja;
     private int radniStaz;
 
+    public Vozac(String JMBG, String ime, String prezime, Date datumRodjenja, int radniStaz) {
+        this.JMBG = JMBG;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.datumRodjenja = datumRodjenja;
+        this.radniStaz = radniStaz;
+    }
+
     public String getJMBG() {
         return JMBG;
     }

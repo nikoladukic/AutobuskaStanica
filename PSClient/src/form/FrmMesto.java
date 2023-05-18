@@ -4,6 +4,13 @@
  */
 package form;
 
+import communication.Communication;
+import domain.Mesto;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PC
@@ -46,6 +53,11 @@ public class FrmMesto extends javax.swing.JDialog {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Dodaj mesto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,6 +115,37 @@ public class FrmMesto extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        if(tbNaziv.getText().length()<2){
+            JOptionPane.showMessageDialog(this, "Naziv mora biti duze od 2");
+            return;
+        }
+         if(tbPostanskiBroj.getText().length()<2){
+            JOptionPane.showMessageDialog(this, "MestoID mora biti duze od 2");
+            return;
+        }
+         try {
+            Long.parseLong(tbPostanskiBroj.getText()); 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "MestoID mora sadrzati samo brojeve");
+            return;
+        }
+        
+        try {
+            if(proveriDaLiPostoji(Integer.parseInt(tbPostanskiBroj.getText()))){
+                JOptionPane.showMessageDialog(this,"Mesto sa zadatim postanskim brojem '"+tbPostanskiBroj.getText()+"' vec psotoji.");
+                return;
+            }else{
+                Communication.getInstance().dodajMesto(new Mesto(Integer.parseInt(tbPostanskiBroj.getText()), tbNaziv.getText()));
+                JOptionPane.showMessageDialog(this,"Mesto uspesno dodato");
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FrmMesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -116,4 +159,14 @@ public class FrmMesto extends javax.swing.JDialog {
     private javax.swing.JTextField tbNaziv;
     private javax.swing.JTextField tbPostanskiBroj;
     // End of variables declaration//GEN-END:variables
+
+    private boolean proveriDaLiPostoji(int mestoID) throws Exception {
+        List<Mesto> mesta=Communication.getInstance().ucitajListuMesta();
+        for (Mesto mesto : mesta) {
+            if(mesto.getMestoID()==mestoID){
+                return true;
+            }
+        }
+        return  false;
+    }
 }

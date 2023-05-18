@@ -4,6 +4,12 @@
  */
 package form;
 
+import communication.Communication;
+import domain.Vozac;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -50,7 +56,6 @@ public class FrmVozac extends javax.swing.JDialog {
         tbRadniStaz = new javax.swing.JTextField();
         btnDodajVozaca = new javax.swing.JToggleButton();
         brnIzmeniVozaca = new javax.swing.JToggleButton();
-        btnPregledVozaca = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -85,13 +90,6 @@ public class FrmVozac extends javax.swing.JDialog {
             }
         });
 
-        btnPregledVozaca.setText("Pregled vozaca");
-        btnPregledVozaca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPregledVozacaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,9 +118,7 @@ public class FrmVozac extends javax.swing.JDialog {
                             .addComponent(tbRadniStaz)
                             .addComponent(jdpDatumRodjenja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 18, Short.MAX_VALUE)
-                        .addComponent(btnPregledVozaca, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(0, 152, Short.MAX_VALUE)
                         .addComponent(brnIzmeniVozaca, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnDodajVozaca, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -154,8 +150,7 @@ public class FrmVozac extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDodajVozaca)
-                    .addComponent(brnIzmeniVozaca)
-                    .addComponent(btnPregledVozaca))
+                    .addComponent(brnIzmeniVozaca))
                 .addGap(15, 15, 15))
         );
 
@@ -180,16 +175,51 @@ public class FrmVozac extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajVozacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajVozacaActionPerformed
-        // TODO add your handling code here:
+        String ime=tbIme.getText();
+        String prezime=tbPrezime.getText();
+        String jmbg=tbJmbg.getText();
+        String radniStaz=tbRadniStaz.getText();
+        
+        if(ime.length()<2){
+            JOptionPane.showMessageDialog(this, "Ime mora biti duze od 2");
+            return;
+        }
+         if(prezime.length()<2){
+            JOptionPane.showMessageDialog(this, "Preizme mora biti duze od 2");
+            return;
+        }
+        
+         if (jmbg.length()!= 13) {
+             JOptionPane.showMessageDialog(this, "JMBG mora biti duzine 13");
+             return;    
+         }
+    
+        try {
+            Long.parseLong(jmbg); 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "JMBG mora sadrzati samo brojeve");
+            return;
+        }
+        try {
+            Long.parseLong(radniStaz); 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Radni staz mora sadrzati samo brojeve");
+            return;
+        }
+        
+        try {
+            Communication.getInstance().kreirajVozaca(new Vozac(jmbg,ime,prezime,jdpDatumRodjenja.getDate(),Integer.parseInt(radniStaz)));
+        } catch (Exception ex) {
+            Logger.getLogger(FrmVozac.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+         
+         
     }//GEN-LAST:event_btnDodajVozacaActionPerformed
 
     private void brnIzmeniVozacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnIzmeniVozacaActionPerformed
-        // TODO add your handling code here:
+        new FrmIzmeniVozaca(new JFrame(),true);
     }//GEN-LAST:event_brnIzmeniVozacaActionPerformed
-
-    private void btnPregledVozacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPregledVozacaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPregledVozacaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,7 +229,6 @@ public class FrmVozac extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton brnIzmeniVozaca;
     private javax.swing.JToggleButton btnDodajVozaca;
-    private javax.swing.JToggleButton btnPregledVozaca;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil2;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil3;
