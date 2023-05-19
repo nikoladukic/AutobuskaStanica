@@ -4,6 +4,25 @@
  */
 package form;
 
+import communication.Communication;
+import domain.Autobus;
+import domain.DestinacijaVoznje;
+import domain.Mesto;
+import domain.Vozac;
+import domain.Voznja;
+import domain.VrstaAutobusa;
+import java.util.Date;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
+import tables.VozacTableModel;
+import tables.VoznjaTableModel;
+
 /**
  *
  * @author PC
@@ -16,6 +35,7 @@ public class FrmVoznja extends javax.swing.JDialog {
     public FrmVoznja(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        prepareTable();
     }
 
     /**
@@ -28,40 +48,43 @@ public class FrmVoznja extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblDatum = new javax.swing.JLabel();
+        lblVreme = new javax.swing.JLabel();
+        lblVozac = new javax.swing.JLabel();
+        lblAutobus = new javax.swing.JLabel();
+        lblMestoDolaska = new javax.swing.JLabel();
         jdpDatumPolaska = new com.toedter.calendar.JDateChooser();
         tbMinutes = new javax.swing.JTextField();
-        tbSecundes = new javax.swing.JTextField();
+        tbSecunds = new javax.swing.JTextField();
         cbVozac = new javax.swing.JComboBox<>();
         cbMestoDolaska = new javax.swing.JComboBox<>();
         cbAutobus = new javax.swing.JComboBox<>();
         btnDodajVoznju = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        tbMinutes1 = new javax.swing.JTextField();
+        tbHours = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtableVoznje = new javax.swing.JTable();
+        lblPregled = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Voznja"));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Datum polaska");
+        lblDatum.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDatum.setText("Datum polaska");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Vreme polaska (hh:mm:ss)");
+        lblVreme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblVreme.setText("Vreme polaska (hh:mm:ss)");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Vozac");
+        lblVozac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblVozac.setText("Vozac");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Autobus");
+        lblAutobus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAutobus.setText("Autobus");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Mesto dolaska");
+        lblMestoDolaska.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblMestoDolaska.setText("Mesto dolaska");
 
         btnDodajVoznju.setText("Dodaj voznju");
         btnDodajVoznju.addActionListener(new java.awt.event.ActionListener() {
@@ -87,18 +110,18 @@ public class FrmVoznja extends javax.swing.JDialog {
                         .addComponent(btnDodajVoznju, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblVreme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblVozac, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblAutobus, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblMestoDolaska, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(tbMinutes1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tbHours, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -106,7 +129,7 @@ public class FrmVoznja extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
-                                .addComponent(tbSecundes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tbSecunds, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jdpDatumPolaska, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbVozac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbMestoDolaska, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -119,50 +142,94 @@ public class FrmVoznja extends javax.swing.JDialog {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jdpDatumPolaska, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblVreme)
                     .addComponent(tbMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tbSecundes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbSecunds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
-                    .addComponent(tbMinutes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tbHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblVozac)
                     .addComponent(cbVozac, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(lblAutobus)
                     .addComponent(cbAutobus, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(lblMestoDolaska)
                     .addComponent(cbMestoDolaska, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnDodajVoznju)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
+
+        jtableVoznje.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jtableVoznje);
+
+        lblPregled.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPregled.setText("Detaljni pregled voznji");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblPregled, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblPregled)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajVoznjuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajVoznjuActionPerformed
-        // TODO add your handling code here:
+        validateInputs();
+        String hh=tbHours.getText();
+        String mm=tbMinutes.getText();
+        String ss=tbSecunds.getText();
+        Time time=new Time(Integer.parseInt(hh), Integer.parseInt(mm), Integer.parseInt(ss));
+        Voznja voznja = new Voznja();
+        voznja.setVozac((Vozac)cbVozac.getSelectedItem());
+        voznja.setDatumPolaska((Date)jdpDatumPolaska.getDate());
+        voznja.setAutobus((Autobus)cbAutobus.getSelectedItem());
+        voznja.setVremePolaska(time);
+        try {
+            Communication.getInstance().kreirajVoznju(voznja);
+            Communication.getInstance().kreirajDestinacijuVoznje(new DestinacijaVoznje(0,voznja,(Mesto)cbMestoDolaska.getSelectedItem()));
+        } catch (Exception ex) {
+            Logger.getLogger(FrmVoznja.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
     }//GEN-LAST:event_btnDodajVoznjuActionPerformed
 
     /**
@@ -172,20 +239,74 @@ public class FrmVoznja extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodajVoznju;
-    private javax.swing.JComboBox<String> cbAutobus;
-    private javax.swing.JComboBox<String> cbMestoDolaska;
-    private javax.swing.JComboBox<String> cbVozac;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JComboBox<Object> cbAutobus;
+    private javax.swing.JComboBox<Object> cbMestoDolaska;
+    private javax.swing.JComboBox<Object> cbVozac;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdpDatumPolaska;
+    private javax.swing.JTable jtableVoznje;
+    private javax.swing.JLabel lblAutobus;
+    private javax.swing.JLabel lblDatum;
+    private javax.swing.JLabel lblMestoDolaska;
+    private javax.swing.JLabel lblPregled;
+    private javax.swing.JLabel lblVozac;
+    private javax.swing.JLabel lblVreme;
+    private javax.swing.JTextField tbHours;
     private javax.swing.JTextField tbMinutes;
-    private javax.swing.JTextField tbMinutes1;
-    private javax.swing.JTextField tbSecundes;
+    private javax.swing.JTextField tbSecunds;
     // End of variables declaration//GEN-END:variables
+
+    private void validateInputs() {
+        String hh=tbHours.getText();
+        String mm=tbMinutes.getText();
+        String ss=tbSecunds.getText();
+        if(jdpDatumPolaska.getDate()==null){
+            JOptionPane.showMessageDialog(this, "Morate izabrati datum voznje koju unosite");
+            return;
+        }
+         if(hh.isEmpty()||mm.isEmpty()||ss.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Obavezno je uneti vreme voznje");
+            return;
+        }
+         if(cbAutobus.getSelectedItem()==null ){
+             JOptionPane.showMessageDialog(this, "Obavezno je uneti autobus");
+             return;
+         }
+         if(cbMestoDolaska.getSelectedItem()==null ){
+             JOptionPane.showMessageDialog(this, "Obavezno je uneti mesto dolaska");
+             return;
+         }
+          if(cbVozac.getSelectedItem()==null ){
+             JOptionPane.showMessageDialog(this, "Obavezno je uneti vozaca za voznju");
+             return;
+         }
+        try {
+            int hours   = Integer.parseInt(hh); 
+            int minutes = Integer.parseInt(mm); 
+            int secunds = Integer.parseInt(ss); 
+            
+            if(hours>24||hours<0||minutes<0||minutes>60||secunds>60||secunds<0){
+             JOptionPane.showMessageDialog(this, "Vreme mora biti u validnom formatu HH:[0-24], MM:[0-60], SS:[0-60]");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Vreme mora biti u validnom formatu HH:[0-24], MM:[0-60], SS:[0-60]");
+        }
+    }
+        private void prepareTable() {
+        try {
+            //List<Voznja> voznje = Communication.getInstance().ucitajListuVoznji();
+            List<Voznja> voznje=new ArrayList<>();
+            long i=1;
+            voznje.add(new Voznja(new Date(), new Time(1212), new Vozac("1","12","123",new Date(),12), new Autobus("ss", "sa", 12, 12, new VrstaAutobusa(i, "putnicki"))));
+            TableModel model = new VoznjaTableModel(voznje);
+           jtableVoznje.setModel(model);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    
+    }
 }

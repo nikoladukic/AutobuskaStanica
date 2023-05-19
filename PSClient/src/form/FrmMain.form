@@ -50,7 +50,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mbDodajAutobus">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dodaj"/>
+                <Property name="text" type="java.lang.String" value="Dodaj/prikazi"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbDodajAutobusActionPerformed"/>
@@ -64,14 +64,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbIzmeniAutobusActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mbPrikaziAutobuse">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Prikazi sve"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbPrikaziAutobuseActionPerformed"/>
-              </Events>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
@@ -81,7 +73,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mbDodajVozaca">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dodaj "/>
+                <Property name="text" type="java.lang.String" value="Dodaj/prikazi "/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbDodajVozacaActionPerformed"/>
@@ -93,14 +85,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbIzmeniVozacaActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mbPrikaziVozace">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Prikazi sve"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbPrikaziVozaceActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -127,7 +111,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mbDodajVoznju">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dodaj"/>
+                <Property name="text" type="java.lang.String" value="Dodaj/prikazi"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbDodajVoznjuActionPerformed"/>
@@ -139,14 +123,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbIzmeniVoznjuActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mbPrikaziVoznje">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Prikazi sve "/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mbPrikaziVoznjeActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

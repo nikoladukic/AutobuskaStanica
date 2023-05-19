@@ -26,6 +26,7 @@ public enum Operation  implements Serializable{
     KreirajVoznju,
     ZapamtiVoznju,
     NadjiVoznju,
-    UcitajListuVoznji
+    UcitajListuVoznji,
+    GetMestoZaZadatuVoznju
     
 }

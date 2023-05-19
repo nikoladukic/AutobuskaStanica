@@ -70,17 +70,14 @@ public class FrmMain extends javax.swing.JDialog {
         JMenu = new javax.swing.JMenu();
         mbDodajAutobus = new javax.swing.JMenuItem();
         mbIzmeniAutobus = new javax.swing.JMenuItem();
-        mbPrikaziAutobuse = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mbDodajVozaca = new javax.swing.JMenuItem();
         mbIzmeniVozaca = new javax.swing.JMenuItem();
-        mbPrikaziVozace = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         mbDodajMesto = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         mbDodajVoznju = new javax.swing.JMenuItem();
         mbIzmeniVoznju = new javax.swing.JMenuItem();
-        mbPrikaziVoznje = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -158,7 +155,7 @@ public class FrmMain extends javax.swing.JDialog {
 
         JMenu.setText("Autobus");
 
-        mbDodajAutobus.setText("Dodaj");
+        mbDodajAutobus.setText("Dodaj/prikazi");
         mbDodajAutobus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mbDodajAutobusActionPerformed(evt);
@@ -174,19 +171,11 @@ public class FrmMain extends javax.swing.JDialog {
         });
         JMenu.add(mbIzmeniAutobus);
 
-        mbPrikaziAutobuse.setText("Prikazi sve");
-        mbPrikaziAutobuse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mbPrikaziAutobuseActionPerformed(evt);
-            }
-        });
-        JMenu.add(mbPrikaziAutobuse);
-
         jMenuBar1.add(JMenu);
 
         jMenu3.setText("Vozac");
 
-        mbDodajVozaca.setText("Dodaj ");
+        mbDodajVozaca.setText("Dodaj/prikazi ");
         mbDodajVozaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mbDodajVozacaActionPerformed(evt);
@@ -201,14 +190,6 @@ public class FrmMain extends javax.swing.JDialog {
             }
         });
         jMenu3.add(mbIzmeniVozaca);
-
-        mbPrikaziVozace.setText("Prikazi sve");
-        mbPrikaziVozace.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mbPrikaziVozaceActionPerformed(evt);
-            }
-        });
-        jMenu3.add(mbPrikaziVozace);
 
         jMenuBar1.add(jMenu3);
 
@@ -226,7 +207,7 @@ public class FrmMain extends javax.swing.JDialog {
 
         jMenu6.setText("Voznja");
 
-        mbDodajVoznju.setText("Dodaj");
+        mbDodajVoznju.setText("Dodaj/prikazi");
         mbDodajVoznju.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mbDodajVoznjuActionPerformed(evt);
@@ -241,14 +222,6 @@ public class FrmMain extends javax.swing.JDialog {
             }
         });
         jMenu6.add(mbIzmeniVoznju);
-
-        mbPrikaziVoznje.setText("Prikazi sve ");
-        mbPrikaziVoznje.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mbPrikaziVoznjeActionPerformed(evt);
-            }
-        });
-        jMenu6.add(mbPrikaziVoznje);
 
         jMenuBar1.add(jMenu6);
 
@@ -369,14 +342,6 @@ public class FrmMain extends javax.swing.JDialog {
         new FrmAutobus(new JFrame(), true).setVisible(true);
     }//GEN-LAST:event_mbDodajAutobusActionPerformed
 
-    private void mbPrikaziAutobuseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbPrikaziAutobuseActionPerformed
-        new FrmPrikazAutobusa(new JFrame(), true).setVisible(true);
-    }//GEN-LAST:event_mbPrikaziAutobuseActionPerformed
-
-    private void mbIzmeniAutobusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbIzmeniAutobusActionPerformed
-        new FrmIzmeniAutobus(new JFrame(), true).setVisible(true);
-    }//GEN-LAST:event_mbIzmeniAutobusActionPerformed
-
     private void mbDodajVozacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbDodajVozacaActionPerformed
         new FrmVozac(new JFrame(), true).setVisible(true);
     }//GEN-LAST:event_mbDodajVozacaActionPerformed
@@ -384,10 +349,6 @@ public class FrmMain extends javax.swing.JDialog {
     private void mbIzmeniVozacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbIzmeniVozacaActionPerformed
         new FrmIzmeniVozaca(new JFrame(), true).setVisible(true);
     }//GEN-LAST:event_mbIzmeniVozacaActionPerformed
-
-    private void mbPrikaziVozaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbPrikaziVozaceActionPerformed
-        new FrmPrikazVozaca(new JFrame(), true).setVisible(true);
-    }//GEN-LAST:event_mbPrikaziVozaceActionPerformed
 
     private void mbDodajMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbDodajMestoActionPerformed
         new FrmMesto(new JFrame(), true).setVisible(true);
@@ -401,9 +362,9 @@ public class FrmMain extends javax.swing.JDialog {
         new FrmIzmeniVoznju(new JFrame(), true).setVisible(true);
     }//GEN-LAST:event_mbIzmeniVoznjuActionPerformed
 
-    private void mbPrikaziVoznjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbPrikaziVoznjeActionPerformed
-         new FrmPrikazVoznji(new JFrame(), true).setVisible(true);
-    }//GEN-LAST:event_mbPrikaziVoznjeActionPerformed
+    private void mbIzmeniAutobusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbIzmeniAutobusActionPerformed
+        new FrmIzmeniAutobus(new JFrame(), true).setVisible(true);
+    }//GEN-LAST:event_mbIzmeniAutobusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,9 +400,6 @@ public class FrmMain extends javax.swing.JDialog {
     private javax.swing.JMenuItem mbIzmeniAutobus;
     private javax.swing.JMenuItem mbIzmeniVozaca;
     private javax.swing.JMenuItem mbIzmeniVoznju;
-    private javax.swing.JMenuItem mbPrikaziAutobuse;
-    private javax.swing.JMenuItem mbPrikaziVozace;
-    private javax.swing.JMenuItem mbPrikaziVoznje;
     private javax.swing.JTable tableVoznje;
     private javax.swing.JTextField tbMesto;
     // End of variables declaration//GEN-END:variables

@@ -4,6 +4,13 @@
  */
 package form;
 
+import communication.Communication;
+import domain.Autobus;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PC
@@ -16,6 +23,7 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
     public FrmIzmeniAutobus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        prepareIzmena();
     }
 
     /**
@@ -39,8 +47,8 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
         tbMarka = new javax.swing.JTextField();
         tbGodProizvodnje = new javax.swing.JTextField();
         tbBrojMesta = new javax.swing.JTextField();
-        cbVrsta = new javax.swing.JComboBox<>();
         btnIzmeni = new javax.swing.JToggleButton();
+        tbVrsta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,6 +72,13 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
         lblVrsta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblVrsta.setText("Vrsta ");
 
+        cbAutobusi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "452" }));
+        cbAutobusi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAutobusiActionPerformed(evt);
+            }
+        });
+
         tbRegBroj.setEnabled(false);
 
         tbMarka.setEnabled(false);
@@ -72,14 +87,14 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
 
         tbBrojMesta.setEnabled(false);
 
-        cbVrsta.setEnabled(false);
-
         btnIzmeni.setText("Izmeni");
         btnIzmeni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIzmeniActionPerformed(evt);
             }
         });
+
+        tbVrsta.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,7 +127,7 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(lblVrsta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cbVrsta, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tbVrsta))))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -141,8 +156,8 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblVrsta)
-                    .addComponent(cbVrsta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                    .addComponent(tbVrsta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(btnIzmeni)
                 .addContainerGap())
         );
@@ -164,8 +179,39 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
-        // TODO add your handling code here:
+         if(cbAutobusi.getSelectedItem()==null){
+            JOptionPane.showMessageDialog(this,"Morate izabrati autobus!");
+            return;
+        }
+        
+        String brojSedista = tbBrojMesta.getText();
+        int brojMesta=0;
+        if(brojSedista.length()==0){
+            JOptionPane.showMessageDialog(this,"Broj mesta autobusa je obavezan!");
+            return;
+        }
+        try {
+            brojMesta = Integer.parseInt(brojSedista);
+            Autobus autobus = (Autobus)cbAutobusi.getSelectedItem();
+            autobus.setBrojMesta(brojMesta);
+            Communication.getInstance().zapamtiAutobus(autobus);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,"Broj mesta mora biti upisan kao broj!");
+        } catch (Exception ex) {
+            System.out.println("form.FrmIzmeniAutobus.btnIzmeniActionPerformed() "+ ex.getStackTrace());
+        }
+       
     }//GEN-LAST:event_btnIzmeniActionPerformed
+
+    private void cbAutobusiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAutobusiActionPerformed
+        Autobus selectedAutobus = (Autobus)cbAutobusi.getSelectedItem();
+        tbBrojMesta.setEnabled(true);
+        tbBrojMesta.setText(selectedAutobus.getBrojMesta()+"");
+        tbGodProizvodnje.setText(selectedAutobus.getGodinaProizvodnje()+"");
+        tbMarka.setText(selectedAutobus.getMarkaAutobusa());
+        tbRegBroj.setText(selectedAutobus.getRegBrojVozila()+"");
+        tbVrsta.setText(selectedAutobus.getVrstaAutobusa().toString());
+    }//GEN-LAST:event_cbAutobusiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,8 +220,7 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnIzmeni;
-    private javax.swing.JComboBox<String> cbAutobusi;
-    private javax.swing.JComboBox<String> cbVrsta;
+    private javax.swing.JComboBox<Object> cbAutobusi;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBrMesta;
     private javax.swing.JLabel lblGodinaProzivodnje;
@@ -187,5 +232,19 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
     private javax.swing.JTextField tbGodProizvodnje;
     private javax.swing.JTextField tbMarka;
     private javax.swing.JTextField tbRegBroj;
+    private javax.swing.JTextField tbVrsta;
     // End of variables declaration//GEN-END:variables
+
+    private void prepareIzmena()  {
+        try {
+            List<Autobus> autobusi = Communication.getInstance().ucitajListuAutobusa();
+   
+            for (Autobus autobus : autobusi) {
+            cbAutobusi.addItem(autobus);
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(FrmIzmeniAutobus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

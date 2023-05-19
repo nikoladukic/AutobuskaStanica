@@ -19,21 +19,17 @@ public class Voznja {
     private Vozac vozac;
     private Autobus autobus;
 
-    public Voznja(Long voznjaID, Date datumPolaska, Time vremePolaska, Vozac vozac, Autobus autobus) {
-        this.voznjaID = voznjaID;
+    public Voznja() {
+    }
+
+    public Voznja( Date datumPolaska, Time vremePolaska, Vozac vozac, Autobus autobus) {
         this.datumPolaska = datumPolaska;
         this.vremePolaska = vremePolaska;
         this.vozac = vozac;
         this.autobus = autobus;
     }
 
-    public Long getVoznjaID() {
-        return voznjaID;
-    }
-
-    public void setVoznjaID(Long voznjaID) {
-        this.voznjaID = voznjaID;
-    }
+    
 
     public Date getDatumPolaska() {
         return datumPolaska;

@@ -4,6 +4,14 @@
  */
 package form;
 
+import communication.Communication;
+import domain.Autobus;
+import domain.Vozac;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author PC
@@ -16,6 +24,7 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
     public FrmIzmeniVozaca(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        prepareInputs();
     }
 
     /**
@@ -91,6 +100,11 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
         });
 
         btnIzmeni.setText("Izmeni vozaca");
+        btnIzmeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzmeniActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,13 +190,34 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbDatumRodjenjaActionPerformed
 
+    private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
+        
+        String radniStaz= tbRadniStaz.getText();
+        int radniStazInt=0;
+        if(radniStaz.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Morate uneti radni staz vozaca!");
+            return;
+        }
+        try {
+            radniStazInt=Integer.parseInt(radniStaz);
+            Vozac vozac = (Vozac)cbVozac.getSelectedItem();
+            vozac.setRadniStaz(radniStazInt);
+            Communication.getInstance().zapamtiVozaca(vozac); 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Radni staz vozaca mora biti broj");
+            return;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnIzmeniActionPerformed
+
     /**
      * @param args the command line arguments
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnIzmeni;
-    private javax.swing.JComboBox<String> cbVozac;
+    private javax.swing.JComboBox<Object> cbVozac;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDatum;
     private javax.swing.JLabel lblIme;
@@ -196,4 +231,26 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
     private javax.swing.JTextField tbPrezime;
     private javax.swing.JTextField tbRadniStaz;
     // End of variables declaration//GEN-END:variables
+
+    private void cbVozacActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        Vozac vozac = (Vozac)cbVozac.getSelectedItem();
+        tbRadniStaz.setEnabled(true);
+        tbIme.setText(vozac.getIme());
+        tbPrezime.setText(vozac.getPrezime());
+        tbJmbg.setText(vozac.getJMBG());
+        tbDatumRodjenja.setText(vozac.getDatumRodjenja()+"");
+        tbRadniStaz.setText(vozac.getRadniStaz()+"");
+    } 
+
+    private void prepareInputs() {
+        try {
+            List<Vozac> vozaci = Communication.getInstance().ucitajListuVozaca();
+            for (Vozac vozac : vozaci) {
+            cbVozac.addItem(vozac);
+            }
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package communication;
 
 import domain.Autobus;
+import domain.DestinacijaVoznje;
 import domain.Voznja;
 import domain.Mesto;
 import domain.Vozac;
@@ -179,8 +180,27 @@ public class Communication {
             throw response.getException();
         }
     }
+    public Mesto getMestoZaZadatuVoznju(Voznja voznja) throws Exception{
+        Request request=new Request(Operation.GetMestoZaZadatuVoznju, voznja);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (Mesto)response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+    public void kreirajDestinacijuVoznje(DestinacijaVoznje destinacija) throws Exception {
+        Request request=new Request(Operation.KreirajDestinacijuVoznje, destinacija);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            
+        }else{
+            throw response.getException();
+        }
+    }
     
-
     
 
    

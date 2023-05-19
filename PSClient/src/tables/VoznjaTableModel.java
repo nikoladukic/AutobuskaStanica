@@ -35,7 +35,6 @@ public class VoznjaTableModel extends AbstractTableModel {
             
         Voznja voznja=voznje.get(rowIndex);
         switch (columnIndex) {
-            case 0: return voznja.getVoznjaID();
             case 1: return voznja.getDatumPolaska();
             case 2: return voznja.getVremePolaska();
             case 3: return voznja.getVozac();
@@ -50,7 +49,6 @@ public class VoznjaTableModel extends AbstractTableModel {
         
     Voznja voznja=voznje.get(rowIndex);
         switch (columnIndex) {
-            case 0: voznja.setVoznjaID((Long)(aValue)); break;
             case 1: voznja.setDatumPolaska((Date)(aValue)); break;
             case 2: voznja.setVremePolaska(Time.valueOf(String.valueOf(aValue))); break;
             case 3: voznja.setVozac((Vozac)(aValue)); break;
