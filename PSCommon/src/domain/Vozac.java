@@ -4,6 +4,7 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,13 +12,16 @@ import java.util.Objects;
  *
  * @author PC
  */
-public class Vozac {
+public class Vozac implements Serializable{
     
     private String JMBG;
     private String ime;
     private String prezime;
     private Date datumRodjenja;
     private int radniStaz;
+
+    public Vozac() {
+    }
 
     public Vozac(String JMBG, String ime, String prezime, Date datumRodjenja, int radniStaz) {
         this.JMBG = JMBG;
@@ -103,6 +107,11 @@ public class Vozac {
             return false;
         }
         return Objects.equals(this.datumRodjenja, other.datumRodjenja);
+    }
+
+    @Override
+    public String toString() {
+        return ime+" " + prezime;
     }
     
     

@@ -7,13 +7,14 @@ import javax.swing.table.AbstractTableModel;
 import domain.Autobus;
 import domain.Vozac;
 import domain.Voznja;
+import java.text.SimpleDateFormat;
 
 
 public class VoznjaTableModel extends AbstractTableModel {
 
     List<Voznja> voznje;
-    String [] columns=new String[]{"ID", "Datum polaska", "Vreme polaska", "Vozac", "Autobus","Mesto Polaska", "Mesto dolaska"};
-    Class[]classes= new Class[]{Object.class,Object.class,Object.class,Object.class,Object.class,Object.class,Object.class};
+    String [] columns=new String[]{ "Datum polaska", "Vreme polaska", "Vozac", "Autobus","Mesto Polaska", "Mesto dolaska"};
+    Class[]classes= new Class[]{Object.class,Object.class,Object.class,Object.class,Object.class,Object.class};
     
      public VoznjaTableModel(List<Voznja> voznje) {
         this.voznje = voznje;
@@ -35,10 +36,17 @@ public class VoznjaTableModel extends AbstractTableModel {
             
         Voznja voznja=voznje.get(rowIndex);
         switch (columnIndex) {
-            case 1: return voznja.getDatumPolaska();
-            case 2: return voznja.getVremePolaska();
-            case 3: return voznja.getVozac();
-            case 4: return voznja.getAutobus();
+            case 0: 
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                String datum = format.format(voznja.getDatumPolaska());
+                return datum;
+            case 1:
+                int HH=voznja.getVremePolaska().getHours();
+                int mm=voznja.getVremePolaska().getMinutes();
+                int ss=voznja.getVremePolaska().getSeconds();
+                return HH+":"+mm+":"+ss;
+            case 2: return voznja.getVozac();
+            case 3: return voznja.getAutobus();
             default:
                 return "n/a";
         }

@@ -4,19 +4,23 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author PC
  */
-public class Autobus {
+public class Autobus implements Serializable {
     
     private String regBrojVozila;
     private String markaAutobusa;
     private int godinaProizvodnje;
     private int brojMesta;
     private VrstaAutobusa vrstaAutobusa;
+
+    public Autobus() {
+    }
 
     public Autobus(String regBrojVozila, String markaAutobusa, int godinaProizvodnje, int brojMesta, VrstaAutobusa vrstaAutobusa) {
         this.regBrojVozila = regBrojVozila;
@@ -91,6 +95,12 @@ public class Autobus {
         final Autobus other = (Autobus) obj;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "regBrojVozila=" + regBrojVozila + ", brojMesta=" + brojMesta + '}';
+    }
+    
     
     
 }

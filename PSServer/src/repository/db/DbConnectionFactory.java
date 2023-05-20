@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rs.ac.bg.fon.ps.repository.db;
+package repository.db;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -33,12 +33,14 @@ public class DbConnectionFactory {
     public Connection getConnection() throws Exception {
         if (connection == null || connection.isClosed()) {
             Properties properties = new Properties();
-            properties.load(new FileInputStream("config/dbconfig.properties"));
-            String url = properties.getProperty("url");
-            String username = properties.getProperty("username");
-            String password = properties.getProperty("password");
-            connection = DriverManager.getConnection(url, username, password);
+            String url="jdbc:mysql://localhost:3306/autobuskastanica";
+            String user="root";
+            String pass="";
+           
+            connection = DriverManager.getConnection(url, user, pass);
             connection.setAutoCommit(false);
+            System.err.println("Sve je u redu sa konekcijom");
+
         }
         return connection;
     }

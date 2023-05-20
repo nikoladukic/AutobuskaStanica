@@ -4,13 +4,14 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author PC
  */
-public class DestinacijaVoznje {
+public class DestinacijaVoznje implements Serializable{
     int destinacijaID;
     Voznja voznja;
     Mesto mesto;

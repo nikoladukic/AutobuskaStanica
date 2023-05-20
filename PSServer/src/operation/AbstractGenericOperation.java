@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rs.ac.bg.fon.ps.operation;
+package operation;
 
-import rs.ac.bg.fon.ps.repository.Repository;
-import rs.ac.bg.fon.ps.repository.db.DbRepository;
-import rs.ac.bg.fon.ps.repository.db.impl.RepositoryDBGeneric;
+import repository.Repository;
+import repository.db.DbRepository;
+import repository.db.impl.RepositoryDBGeneric;
 
 /**
  *

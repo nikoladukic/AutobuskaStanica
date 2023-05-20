@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rs.ac.bg.fon.ps.repository.db;
+package repository.db;
 
-import rs.ac.bg.fon.ps.repository.Repository;
+import repository.Repository;
 
 /**
  *

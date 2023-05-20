@@ -5,6 +5,7 @@ import domain.DestinacijaVoznje;
 import domain.Voznja;
 import domain.Mesto;
 import domain.Vozac;
+import domain.VrstaAutobusa;
 import java.net.Socket;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Communication {
     Receiver receiver;
     private static Communication instance;
     private Communication() throws Exception{
-        socket=new Socket("127.0.0.1", 9000);
+        socket=new Socket("127.0.0.1", 9001);
         sender=new Sender(socket);
         receiver=new Receiver(socket);
     }
@@ -137,6 +138,7 @@ public class Communication {
         if(response.getException()==null){
             return (List<Vozac>)response.getResult();
         }else{
+            System.out.println("communication.Communication.ucitajListuVozaca()");
             throw response.getException();
         }
     }
@@ -197,6 +199,17 @@ public class Communication {
         if(response.getException()==null){
             
         }else{
+            throw response.getException();
+        }
+    }
+    public List<VrstaAutobusa> UcitajListuVrstiAutobusa() throws Exception{
+        Request request=new Request(Operation.UcitajListuVrstiAutobusa, null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<VrstaAutobusa>)response.getResult();
+        }else{
+            System.out.println("communication.Communication.ucitajListuVozaca()");
             throw response.getException();
         }
     }

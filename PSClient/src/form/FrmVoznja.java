@@ -35,7 +35,7 @@ public class FrmVoznja extends javax.swing.JDialog {
     public FrmVoznja(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        prepareTable();
+        prepareComponents();
     }
 
     /**
@@ -295,15 +295,24 @@ public class FrmVoznja extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vreme mora biti u validnom formatu HH:[0-24], MM:[0-60], SS:[0-60]");
         }
     }
-        private void prepareTable() {
+        private void prepareComponents() {
         try {
-            //List<Voznja> voznje = Communication.getInstance().ucitajListuVoznji();
-            List<Voznja> voznje=new ArrayList<>();
-            long i=1;
-            voznje.add(new Voznja(new Date(), new Time(1212), new Vozac("1","12","123",new Date(),12), new Autobus("ss", "sa", 12, 12, new VrstaAutobusa(i, "putnicki"))));
+            List<Voznja> voznje = Communication.getInstance().ucitajListuVoznji();
             TableModel model = new VoznjaTableModel(voznje);
-           jtableVoznje.setModel(model);
-            
+            jtableVoznje.setModel(model);
+            List<Mesto> mesta=Communication.getInstance().ucitajListuMesta();
+            for (Mesto mesto : mesta) {
+                cbMestoDolaska.addItem(mesto);
+            }
+            List<Autobus> autobusi=Communication.getInstance().ucitajListuAutobusa();
+            for (Autobus autobus : autobusi) {
+                cbAutobus.addItem(autobus);
+            }
+            List<Vozac> vozaci=Communication.getInstance().ucitajListuVozaca();
+            for (Vozac vozac : vozaci) {
+                cbVozac.addItem(vozac);
+            }
+        
         } catch (Exception ex) {
             ex.printStackTrace();
         }

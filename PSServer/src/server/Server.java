@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rs.ac.bg.fon.ps.server;
+package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import rs.ac.bg.fon.ps.thread.ProcessClientsRequests;
+import thread.ProcessClientsRequests;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Server {
 
     public void startServer() {
         try {
-            ServerSocket serverSocket = new ServerSocket(9000);
+            ServerSocket serverSocket = new ServerSocket(9001);
             while (true) {
 
                 System.out.println("Waiting for connection...");

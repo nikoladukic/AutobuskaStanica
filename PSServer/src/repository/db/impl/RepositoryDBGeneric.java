@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rs.ac.bg.fon.ps.repository.db.impl;
+package repository.db.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import domain.GenericEntity;
-import rs.ac.bg.fon.ps.repository.db.DbConnectionFactory;
-import rs.ac.bg.fon.ps.repository.db.DbRepository;
+import repository.db.DbConnectionFactory;
+import repository.db.DbRepository;
 
 /**
  *

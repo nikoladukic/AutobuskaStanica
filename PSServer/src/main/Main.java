@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rs.ac.bg.fon.ps.main;
+package main;
 
-import rs.ac.bg.fon.ps.server.Server;
+import server.Server;
 
 /**
  *

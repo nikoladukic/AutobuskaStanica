@@ -4,18 +4,22 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author PC
  */
-public class Mesto {
+public class Mesto implements Serializable{
     private int mestoID;
     private String naziv;
 
     public int getMestoID() {
         return mestoID;
+    }
+
+    public Mesto() {
     }
 
     public void setMestoID(int mestoID) {
@@ -59,6 +63,11 @@ public class Mesto {
             return false;
         }
         return Objects.equals(this.naziv, other.naziv);
+    }
+
+    @Override
+    public String toString() {
+        return naziv;
     }
     
     

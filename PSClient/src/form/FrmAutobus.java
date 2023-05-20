@@ -7,11 +7,7 @@ package form;
 import communication.Communication;
 import domain.Autobus;
 import domain.VrstaAutobusa;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import tables.AutobusTableModel;
@@ -290,12 +286,15 @@ public class FrmAutobus extends javax.swing.JDialog {
 
     private void prepareComponents() {
         try {
-            //List<Autobus> autobusi = communication.Communication.getInstance().ucitajListuAutobusa();
-            List<Autobus> autobusi =new ArrayList<>();
+            List<Autobus> autobusi = communication.Communication.getInstance().ucitajListuAutobusa();
             long i=1;
-            autobusi.add(new Autobus("ss", "sa", 12, 12, new VrstaAutobusa(i, "putnicki")));
             TableModel model=new AutobusTableModel(autobusi);
             jTableAutobusi.setModel(model);
+            List<VrstaAutobusa> vrste=Communication.getInstance().UcitajListuVrstiAutobusa();
+            for (VrstaAutobusa vrsta : vrste) {
+                cbVrsta.addItem(vrsta);
+            }
+        
         } catch (Exception ex) {
             ex.printStackTrace();
         }

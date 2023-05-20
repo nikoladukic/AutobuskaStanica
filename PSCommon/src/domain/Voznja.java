@@ -4,6 +4,7 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @author PC
  */
-public class Voznja {
+public class Voznja implements Serializable{
     private Long voznjaID;
     private Date datumPolaska;
     private Time vremePolaska;

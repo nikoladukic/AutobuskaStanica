@@ -319,9 +319,10 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
         voznja.setAutobus((Autobus)cbAutobus.getSelectedItem());
         voznja.setVremePolaska(time);
         try {
-        Communication.getInstance().zapamtiVoznju(voznja);
-            
-            
+
+             Communication.getInstance().zapamtiVoznju(voznja);
+             
+
         } catch (Exception ex) {
             Logger.getLogger(FrmVoznja.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -243,8 +243,17 @@ public class FrmVozac extends javax.swing.JDialog {
         }
         
         try {
+            int brojVozaca=jTableVozaci.getRowCount();
             Communication.getInstance().kreirajVozaca(new Vozac(jmbg,ime,prezime,jdpDatumRodjenja.getDate(),Integer.parseInt(radniStaz)));
+            prepareTable();
+            int brojVozaca2 =jTableVozaci.getRowCount();
+            if(brojVozaca2>brojVozaca){
+                JOptionPane.showMessageDialog(this, "Vozac uspesno dodat.");
+            }else{
+                JOptionPane.showMessageDialog(this, "Doslo je do greske prilkom dodavanja novog vozaca.");
+            }
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Doslo je do greske prilkom dodavanja novog vozaca.");
             Logger.getLogger(FrmVozac.class.getName()).log(Level.SEVERE, null, ex);
         }
          
@@ -286,9 +295,7 @@ public class FrmVozac extends javax.swing.JDialog {
 
     private void prepareTable() {
         try {
-            //List<Vozac> vozaci = Communication.getInstance().ucitajListuVozaca();
-            List<Vozac> vozaci=new ArrayList<>();
-            vozaci.add(new Vozac("1","12","123",new Date(),12));
+            List<Vozac> vozaci = Communication.getInstance().ucitajListuVozaca();
             TableModel model = new VozacTableModel(vozaci);
             jTableVozaci.setModel(model);
             

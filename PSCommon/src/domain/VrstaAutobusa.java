@@ -4,13 +4,14 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author PC
  */
-public class VrstaAutobusa {
+public class VrstaAutobusa implements Serializable {
     
     private Long vrstaAutobusaID;
     private String NazivVrsta;
@@ -18,6 +19,9 @@ public class VrstaAutobusa {
     public VrstaAutobusa(Long vrstaAutobusaID, String NazivVrsta) {
         this.vrstaAutobusaID = vrstaAutobusaID;
         this.NazivVrsta = NazivVrsta;
+    }
+
+    public VrstaAutobusa() {
     }
 
     public Long getVrstaAutobusaID() {
@@ -60,6 +64,11 @@ public class VrstaAutobusa {
             return false;
         }
         return Objects.equals(this.vrstaAutobusaID, other.vrstaAutobusaID);
+    }
+
+    @Override
+    public String toString() {
+        return NazivVrsta;
     }
     
     

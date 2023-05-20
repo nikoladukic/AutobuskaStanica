@@ -133,16 +133,11 @@ public class FrmMesto extends javax.swing.JDialog {
         }
         
         try {
-            if(proveriDaLiPostoji(Integer.parseInt(tbPostanskiBroj.getText()))){
-                JOptionPane.showMessageDialog(this,"Mesto sa zadatim postanskim brojem '"+tbPostanskiBroj.getText()+"' vec psotoji.");
-                return;
-            }else{
-                Communication.getInstance().dodajMesto(new Mesto(Integer.parseInt(tbPostanskiBroj.getText()), tbNaziv.getText()));
-                JOptionPane.showMessageDialog(this,"Mesto uspesno dodato");
-
-            }
+            Communication.getInstance().dodajMesto(new Mesto(Integer.parseInt(tbPostanskiBroj.getText()), tbNaziv.getText()));
+            JOptionPane.showMessageDialog(this,"Mesto uspesno dodato");
+            
         } catch (Exception ex) {
-            Logger.getLogger(FrmMesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,"Doslo je do problema pri dodavanju novog mesta");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

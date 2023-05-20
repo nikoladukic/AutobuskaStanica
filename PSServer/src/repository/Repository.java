@@ -1,4 +1,4 @@
-package rs.ac.bg.fon.ps.repository;
+package repository;
 
 import java.util.List;
 

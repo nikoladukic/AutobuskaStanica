@@ -4,10 +4,12 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import domain.Vozac;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 
 public class VozacTableModel extends AbstractTableModel{
-    private final String[] columnNames= {"ID","JMBG","Ime", "Prezime","Datum rodjenja", "Radni staz"};
+    private final String[] columnNames= {"JMBG","Ime", "Prezime","Datum rodjenja", "Radni staz"};
     private final List<Vozac> vozaci;
 
     public VozacTableModel(List<Vozac> vozaci) {
@@ -66,7 +68,10 @@ public class VozacTableModel extends AbstractTableModel{
             case 0: return vozac.getJMBG();
             case 1: return vozac.getIme();
             case 2: return vozac.getPrezime();
-            case 3: return vozac.getDatumRodjenja();
+            case 3:
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                String datum = format.format(vozac.getDatumRodjenja());
+                return datum;
             case 4: return vozac.getRadniStaz();
             default:
                 return "n/a";
