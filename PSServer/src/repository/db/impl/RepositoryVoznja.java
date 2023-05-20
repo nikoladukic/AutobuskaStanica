@@ -4,6 +4,7 @@
  */
 package repository.db.impl;
 
+import domain.Autobus;
 import domain.Vozac;
 import domain.Voznja;
 import java.sql.Connection;
@@ -64,12 +65,11 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Voznja voznja = new Voznja();
-                  voznja.setDatumPolaska(new java.util.Date(rs.getDate("DatumPolaska").getTime()));
-                  voznja.setVremePolaska(rs.getTime("VremePolaska"));
-//                voznja.setVozac(rs.getObject("", type));
-//                voznja.setDatumRodjenja(new java.util.Date(rs.getDate("DatumRodjenja").getTime()));
-//                voznja.setRadniStaz(rs.getInt("RadniStaz"));
-                  voznje.add(voznja);
+                voznja.setDatumPolaska(new java.util.Date(rs.getDate("DatumPolaska").getTime()));
+                voznja.setVremePolaska(rs.getTime("VremePolaska"));
+                voznja.setVozac(getVozacForJmbg(rs.getString("JMBG")));
+                voznja.setAutobus(getAutobusForRegBroj(rs.getString("RegBrojVozila")));
+                voznje.add(voznja);
             }
             rs.close();
             statement.close();
@@ -78,6 +78,27 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    
+    Vozac getVozacForJmbg(String jmbg){
+        RepositoryVozac repVozac = new RepositoryVozac();
+        List<Vozac> vozaci = repVozac.getAll();
+        for(Vozac vozac : vozaci){
+            if(vozac.getJMBG().equals(jmbg)){
+                return vozac;
+            }
+        }
+        return null;
+    }
+    Autobus getAutobusForRegBroj(String regBroj){
+        RepositoryAutobus repAutobus = new RepositoryAutobus();
+        List<Autobus> autobusi = repAutobus.getAll();
+        for(Autobus autobus : autobusi){
+            if(autobus.getRegBrojVozila().equals(regBroj)){
+                return autobus;
+            }
+        }
+        return null;
     }
     
 }

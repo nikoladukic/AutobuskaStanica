@@ -7,6 +7,8 @@ package form;
 import communication.Communication;
 import domain.Autobus;
 import domain.VrstaAutobusa;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -219,7 +221,7 @@ public class FrmAutobus extends javax.swing.JDialog {
              return;    
          }
          
-          if (marka.length()< 5) {
+          if (regBroj.length()< 5) {
              JOptionPane.showMessageDialog(this, "Registarki broj mora biti duzi od 5");
              return;    
          }
@@ -243,8 +245,12 @@ public class FrmAutobus extends javax.swing.JDialog {
             try {
                 Autobus noviAutobus = new Autobus(tbRegBroj.getText(), tbMarka.getText(), Integer.parseInt(godinaProzivodnje), Integer.parseInt(brojMesta), (VrstaAutobusa)cbVrsta.getSelectedItem());
                 Communication.getInstance().kreirajAutobus(noviAutobus);
+                prepareComponents();
+                tbBrojMesta.setText("");tbGodProizvodnje.setText("");tbMarka.setText("");tbRegBroj.setText("");
+                JOptionPane.showMessageDialog(this, "Uspesno dodat novi autobus!");
             } catch (Exception ex) {
-                  System.out.println(ex.getStackTrace());
+                JOptionPane.showMessageDialog(this, "Greska pri dodavanju autobusa, vec postoji!","Greska",JOptionPane.ERROR_MESSAGE);
+                System.out.println(ex.getMessage());
             }
         }
     }//GEN-LAST:event_btnDodajAutobusActionPerformed

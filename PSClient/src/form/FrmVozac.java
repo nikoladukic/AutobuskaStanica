@@ -243,18 +243,18 @@ public class FrmVozac extends javax.swing.JDialog {
         }
         
         try {
-            int brojVozaca=jTableVozaci.getRowCount();
             Communication.getInstance().kreirajVozaca(new Vozac(jmbg,ime,prezime,jdpDatumRodjenja.getDate(),Integer.parseInt(radniStaz)));
             prepareTable();
-            int brojVozaca2 =jTableVozaci.getRowCount();
-            if(brojVozaca2>brojVozaca){
-                JOptionPane.showMessageDialog(this, "Vozac uspesno dodat.");
-            }else{
-                JOptionPane.showMessageDialog(this, "Doslo je do greske prilkom dodavanja novog vozaca.");
-            }
+            tbIme.setText("");
+            tbJmbg.setText("");
+            tbPrezime.setText("");
+            tbRadniStaz.setText("");
+            JOptionPane.showMessageDialog(this, "Vozac uspesno dodat.");
+            
+            
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Doslo je do greske prilkom dodavanja novog vozaca.");
-            Logger.getLogger(FrmVozac.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Greska pri dodavanju vozaca, vec postoji!","Greska",JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
         }
          
          

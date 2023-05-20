@@ -42,13 +42,13 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
         lblGodinaProzivodnje = new javax.swing.JLabel();
         lblBrMesta = new javax.swing.JLabel();
         lblVrsta = new javax.swing.JLabel();
-        cbAutobusi = new javax.swing.JComboBox<>();
         tbRegBroj = new javax.swing.JTextField();
         tbMarka = new javax.swing.JTextField();
         tbGodProizvodnje = new javax.swing.JTextField();
         tbBrojMesta = new javax.swing.JTextField();
         btnIzmeni = new javax.swing.JToggleButton();
         tbVrsta = new javax.swing.JTextField();
+        jcbAutobusi = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,14 +72,12 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
         lblVrsta.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblVrsta.setText("Vrsta ");
 
-        cbAutobusi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "452" }));
-        cbAutobusi.addActionListener(new java.awt.event.ActionListener() {
+        tbRegBroj.setEnabled(false);
+        tbRegBroj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbAutobusiActionPerformed(evt);
+                tbRegBrojActionPerformed(evt);
             }
         });
-
-        tbRegBroj.setEnabled(false);
 
         tbMarka.setEnabled(false);
 
@@ -100,43 +98,40 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnIzmeni)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblRegBroj, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cbAutobusi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblRegBroj1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tbRegBroj, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblGodinaProzivodnje, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblRegBroj, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(84, 84, 84)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jcbAutobusi, 0, 182, Short.MAX_VALUE)
+                                    .addComponent(tbGodProizvodnje)
+                                    .addComponent(tbRegBroj)
+                                    .addComponent(tbMarka)
+                                    .addComponent(tbBrojMesta)
+                                    .addComponent(tbVrsta))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblMarka, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tbMarka, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblGodinaProzivodnje, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tbGodProizvodnje, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(lblBrMesta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tbBrojMesta, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(lblVrsta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tbVrsta))))
-                .addGap(0, 15, Short.MAX_VALUE))
+                            .addComponent(lblRegBroj1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(426, 426, 426))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRegBroj)
-                    .addComponent(cbAutobusi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbAutobusi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRegBroj1)
@@ -157,29 +152,29 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblVrsta)
                     .addComponent(tbVrsta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(btnIzmeni)
-                .addContainerGap())
+                .addGap(45, 45, 45)
+                .addComponent(btnIzmeni, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
-         if(cbAutobusi.getSelectedItem()==null){
+         if(jcbAutobusi.getSelectedItem()==null){
             JOptionPane.showMessageDialog(this,"Morate izabrati autobus!");
             return;
         }
@@ -192,7 +187,7 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
         }
         try {
             brojMesta = Integer.parseInt(brojSedista);
-            Autobus autobus = (Autobus)cbAutobusi.getSelectedItem();
+            Autobus autobus = (Autobus)jcbAutobusi.getSelectedItem();
             autobus.setBrojMesta(brojMesta);
             Communication.getInstance().zapamtiAutobus(autobus);
         } catch (NumberFormatException e) {
@@ -203,15 +198,9 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
        
     }//GEN-LAST:event_btnIzmeniActionPerformed
 
-    private void cbAutobusiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAutobusiActionPerformed
-        Autobus selectedAutobus = (Autobus)cbAutobusi.getSelectedItem();
-        tbBrojMesta.setEnabled(true);
-        tbBrojMesta.setText(selectedAutobus.getBrojMesta()+"");
-        tbGodProizvodnje.setText(selectedAutobus.getGodinaProizvodnje()+"");
-        tbMarka.setText(selectedAutobus.getMarkaAutobusa());
-        tbRegBroj.setText(selectedAutobus.getRegBrojVozila()+"");
-        tbVrsta.setText(selectedAutobus.getVrstaAutobusa().toString());
-    }//GEN-LAST:event_cbAutobusiActionPerformed
+    private void tbRegBrojActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbRegBrojActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbRegBrojActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,8 +209,8 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnIzmeni;
-    private javax.swing.JComboBox<Object> cbAutobusi;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<Object> jcbAutobusi;
     private javax.swing.JLabel lblBrMesta;
     private javax.swing.JLabel lblGodinaProzivodnje;
     private javax.swing.JLabel lblMarka;
@@ -240,9 +229,9 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
             List<Autobus> autobusi = Communication.getInstance().ucitajListuAutobusa();
    
             for (Autobus autobus : autobusi) {
-            cbAutobusi.addItem(autobus);
+                jcbAutobusi.addItem(autobus);
             }
-            
+            jcbAutobusi.setEnabled(true);
         } catch (Exception ex) {
             Logger.getLogger(FrmIzmeniAutobus.class.getName()).log(Level.SEVERE, null, ex);
         }

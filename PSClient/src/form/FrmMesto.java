@@ -134,10 +134,12 @@ public class FrmMesto extends javax.swing.JDialog {
         
         try {
             Communication.getInstance().dodajMesto(new Mesto(Integer.parseInt(tbPostanskiBroj.getText()), tbNaziv.getText()));
+            tbNaziv.setText("");
+            tbPostanskiBroj.setText("");
             JOptionPane.showMessageDialog(this,"Mesto uspesno dodato");
             
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,"Doslo je do problema pri dodavanju novog mesta");
+                JOptionPane.showMessageDialog(this, "Greska pri mesta autobusa, vec postoji!","Greska",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

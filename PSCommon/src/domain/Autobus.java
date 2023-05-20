@@ -98,7 +98,7 @@ public class Autobus implements Serializable {
 
     @Override
     public String toString() {
-        return "regBrojVozila=" + regBrojVozila + ", brojMesta=" + brojMesta + '}';
+        return  markaAutobusa+", "+brojMesta;
     }
     
     

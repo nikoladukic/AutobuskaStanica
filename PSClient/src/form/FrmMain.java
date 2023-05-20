@@ -6,7 +6,10 @@ package form;
 
 import domain.Mesto;
 import communication.Communication;
+import domain.Autobus;
+import domain.Vozac;
 import domain.Voznja;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +27,7 @@ import threads.DateTimeThread;
  *
  * @author PC
  */
-public class FrmMain extends javax.swing.JDialog {
+public class FrmMain extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmMain
@@ -33,10 +36,12 @@ public class FrmMain extends javax.swing.JDialog {
      */
 
     public FrmMain() {
-        super(new JFrame(), true);
+        super();
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setTime();
         prepareTable(null, null);
+        prepareComponents();
     }
 
     /**
@@ -55,17 +60,18 @@ public class FrmMain extends javax.swing.JDialog {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        lblDatumVreme = new javax.swing.JLabel();
-        lblDatumVremeText = new javax.swing.JLabel();
-        btnPretaziVoznju = new javax.swing.JButton();
-        tbMesto = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        JlMesta = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
-        jDTPDatum = new com.toedter.calendar.JDateChooser();
-        jlDatum = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableVoznje = new javax.swing.JTable();
+        btnPretaziVoznju = new javax.swing.JButton();
+        jDTPDatum = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JlMesta = new javax.swing.JList<>();
+        tbMesto = new javax.swing.JTextField();
+        jlDatum = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblDatumVremeText = new javax.swing.JLabel();
+        lblDatumVreme = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         JMenu = new javax.swing.JMenu();
         mbDodajAutobus = new javax.swing.JMenuItem();
@@ -93,15 +99,20 @@ public class FrmMain extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblDatumVreme.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lblDatumVreme.setForeground(new java.awt.Color(0, 0, 0));
-        lblDatumVreme.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblDatumVreme.setText("datum i vreme");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pregled voznji", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
 
-        lblDatumVremeText.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lblDatumVremeText.setForeground(new java.awt.Color(0, 0, 0));
-        lblDatumVremeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDatumVremeText.setText("Datum :");
+        tableVoznje.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tableVoznje);
 
         btnPretaziVoznju.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnPretaziVoznju.setText("PRETRAZI VOZNJU");
@@ -110,6 +121,15 @@ public class FrmMain extends javax.swing.JDialog {
                 btnPretaziVoznjuActionPerformed(evt);
             }
         });
+
+        JlMesta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JlMesta.setEnabled(false);
+        JlMesta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JlMestaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(JlMesta);
 
         tbMesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,33 +145,72 @@ public class FrmMain extends javax.swing.JDialog {
             }
         });
 
-        JlMesta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        JlMesta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JlMestaMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(JlMesta);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("MESTO");
-
         jlDatum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jlDatum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlDatum.setText("DATUM ");
 
-        tableVoznje.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tableVoznje);
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("MESTO");
+
+        lblDatumVremeText.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblDatumVremeText.setForeground(new java.awt.Color(0, 0, 0));
+        lblDatumVremeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDatumVremeText.setText("Datum :");
+
+        lblDatumVreme.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblDatumVreme.setForeground(new java.awt.Color(0, 0, 0));
+        lblDatumVreme.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblDatumVreme.setText("datum i vreme");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(tbMesto, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jDTPDatum, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(jlDatum, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPretaziVoznju, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblDatumVremeText, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblDatumVreme, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+                        .addGap(472, 472, 472))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDatumVremeText, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDatumVreme, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbMesto)
+                    .addComponent(jlDatum, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnPretaziVoznju, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                        .addComponent(jDTPDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         JMenu.setText("Autobus");
 
@@ -231,53 +290,14 @@ public class FrmMain extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDatumVremeText, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDatumVreme, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                    .addComponent(tbMesto))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jDTPDatum, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                                    .addComponent(jlDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPretaziVoznju))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDatumVreme, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDatumVremeText, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                            .addComponent(tbMesto)
-                            .addComponent(jlDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jDTPDatum, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnPretaziVoznju, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -294,21 +314,16 @@ public class FrmMain extends javax.swing.JDialog {
         // TODO add your handling code here:
         DefaultListModel<String> listModel = new DefaultListModel<>();
         JlMesta.setModel(listModel);
+        JlMesta.setEnabled(true);
          List<Mesto> mesta=new ArrayList<>();
         try {
-           // mesta = Communication.getInstance().ucitajListuMesta();
+            mesta = Communication.getInstance().ucitajListuMesta();
             for (Mesto mesto : mesta) {
                 listModel.addElement(mesto.getNaziv());
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "GRESKA PRILOKOM UCITAVNJA MESTA", JOptionPane.ERROR_MESSAGE);
         }
-        
-        listModel.addElement("Beograd");
-        listModel.addElement("Kragujevac");
-        listModel.addElement("Knic");
-        listModel.addElement("Lazarevac");
-        listModel.addElement("Ljig");
         
         String prefix = tbMesto.getText().toLowerCase();
         List<String> filteredList = new ArrayList<>();
@@ -388,6 +403,7 @@ public class FrmMain extends javax.swing.JDialog {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jlDatum;
@@ -427,6 +443,17 @@ public class FrmMain extends javax.swing.JDialog {
             tableVoznje.setModel(model);
         } catch (Exception ex) {
             Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void prepareComponents() {
+        try {
+            List<Voznja> voznje = Communication.getInstance().ucitajListuVoznji();
+            TableModel model = new VoznjaTableModel(voznje);
+            tableVoznje.setModel(model);
+            
+        
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }

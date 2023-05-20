@@ -47,6 +47,7 @@ public class VoznjaTableModel extends AbstractTableModel {
                 return HH+":"+mm+":"+ss;
             case 2: return voznja.getVozac();
             case 3: return voznja.getAutobus();
+            case 4: return "Kraljevo";
             default:
                 return "n/a";
         }
