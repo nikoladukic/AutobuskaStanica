@@ -7,7 +7,6 @@ package repository.db.impl;
 import domain.Vozac;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -43,8 +42,16 @@ public class RepositoryVozac implements DbRepository<Vozac>{
     }
 
     @Override
-    public void edit(Vozac param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void edit(Vozac vozac) throws Exception {
+        String sql = "UPDATE vozac SET RadniStaz = ? WHERE JMBG= ? ";
+
+            Connection connection = DbConnectionFactory.getInstance().getConnection();
+
+            PreparedStatement pstatement = connection.prepareStatement(sql);
+            pstatement.setInt(1, vozac.getRadniStaz());
+            pstatement.setString(2, vozac.getJMBG());
+            pstatement.executeUpdate();
+            pstatement.close();
     }
 
     @Override

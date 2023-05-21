@@ -5,11 +5,8 @@
 package form;
 
 import communication.Communication;
-import domain.Autobus;
 import domain.Vozac;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,6 +52,12 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
         setSize(new java.awt.Dimension(0, 0));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("IZMENA VOZACA"));
+
+        cbVozac.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbVozacMouseClicked(evt);
+            }
+        });
 
         lblIzaberiVozaca.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblIzaberiVozaca.setText("Izaberi vozaca");
@@ -194,7 +197,7 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
         
         String radniStaz= tbRadniStaz.getText();
         int radniStazInt=0;
-        if(radniStaz.isEmpty()){
+        if(radniStaz.length()==0){
             JOptionPane.showMessageDialog(this, "Morate uneti radni staz vozaca!");
             return;
         }
@@ -203,13 +206,29 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
             Vozac vozac = (Vozac)cbVozac.getSelectedItem();
             vozac.setRadniStaz(radniStazInt);
             Communication.getInstance().zapamtiVozaca(vozac); 
+            JOptionPane.showMessageDialog(this, "Uspenso izmenjen radni staz vozaca");
+            cbVozac.removeAllItems();
+            prepareInputs();
         } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this, "Radni staz vozaca mora biti broj");
-            return;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Greska pri izmeni radnog staza vozaca!","Greska",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnIzmeniActionPerformed
+
+    private void cbVozacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbVozacMouseClicked
+        Vozac vozac = (Vozac)cbVozac.getSelectedItem();
+        if(vozac!=null){
+        tbRadniStaz.setEnabled(true);
+        tbIme.setText(vozac.getIme());
+        tbPrezime.setText(vozac.getPrezime());
+        tbJmbg.setText(vozac.getJMBG());
+        tbDatumRodjenja.setText(vozac.getDatumRodjenja()+"");
+        tbRadniStaz.setText(vozac.getRadniStaz()+"");
+        }
+    }//GEN-LAST:event_cbVozacMouseClicked
 
     /**
      * @param args the command line arguments
@@ -234,12 +253,15 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
 
     private void cbVozacActionPerformed(java.awt.event.ActionEvent evt) {                                           
         Vozac vozac = (Vozac)cbVozac.getSelectedItem();
+        if(vozac!=null){
         tbRadniStaz.setEnabled(true);
         tbIme.setText(vozac.getIme());
         tbPrezime.setText(vozac.getPrezime());
+            System.out.println(vozac.getPrezime());
         tbJmbg.setText(vozac.getJMBG());
         tbDatumRodjenja.setText(vozac.getDatumRodjenja()+"");
         tbRadniStaz.setText(vozac.getRadniStaz()+"");
+        }
     } 
 
     private void prepareInputs() {
@@ -248,7 +270,8 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
             for (Vozac vozac : vozaci) {
             cbVozac.addItem(vozac);
             }
-            
+            cbVozac.setEnabled(true);
+            tbRadniStaz.setEnabled(true);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

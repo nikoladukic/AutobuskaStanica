@@ -292,11 +292,15 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
 
     private void cbVoznjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbVoznjeActionPerformed
         Voznja voznja=(Voznja)cbVoznje.getSelectedItem();
+        if(voznja!=null){
         tbAutobus.setText(voznja.getAutobus().toString());
-        tbDatum.setText(voznja.getDatumPolaska().toString());
+        int mesec = voznja.getDatumPolaska().getMonth();
+        int dan = voznja.getDatumPolaska().getDay();
+        int godina = voznja.getDatumPolaska().getYear();
+        tbDatum.setText(dan+"/"+mesec+"/"+godina);
         tbVreme.setText(voznja.getVremePolaska().toString());
         tbVozac.setText(voznja.getVozac().toString());
-        
+        }
         try {
             Mesto mesto = Communication.getInstance().getMestoZaZadatuVoznju(voznja);
             tbMestoDolaska.setText(mesto.getNaziv());
@@ -321,10 +325,13 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
         try {
 
              Communication.getInstance().zapamtiVoznju(voznja);
-             
+             JOptionPane.showMessageDialog(this,"Uspesno izvrsena izmena voznje!");
+             cbVoznje.removeAllItems();
+             prepareInputs();
 
         } catch (Exception ex) {
-            Logger.getLogger(FrmVoznja.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Greska pri izmeni voznje!","Greska",JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_btnIzmeniActionPerformed
 

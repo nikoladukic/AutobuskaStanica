@@ -30,6 +30,14 @@ public class Voznja implements Serializable{
         this.autobus = autobus;
     }
 
+    public Long getVoznjaID() {
+        return voznjaID;
+    }
+
+    public void setVoznjaID(Long voznjaID) {
+        this.voznjaID = voznjaID;
+    }
+
     
 
     public Date getDatumPolaska() {
@@ -101,6 +109,12 @@ public class Voznja implements Serializable{
         }
         return Objects.equals(this.autobus, other.autobus);
     }
+
+    @Override
+    public String toString() {
+        return "Voznja{" + "datumPolaska=" + datumPolaska + ", vremePolaska=" + vremePolaska + '}';
+    }
+    
     
     
 }

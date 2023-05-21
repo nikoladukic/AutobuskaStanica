@@ -45,8 +45,19 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
     }
 
     @Override
-    public void edit(Voznja param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void edit(Voznja voznja) throws Exception {
+        String sql = "UPDATE autobus SET DatumPolaska = ?,VremePolaska=?,JMBG = ?,RegBrojVozila=? WHERE VoznjaID= ? ";
+
+            Connection connection = DbConnectionFactory.getInstance().getConnection();
+
+            PreparedStatement pstatement = connection.prepareStatement(sql);
+            pstatement.setDate(1, new java.sql.Date(voznja.getDatumPolaska().getTime()));
+            pstatement.setTime(2, voznja.getVremePolaska());
+            pstatement.setString(3, voznja.getVozac().getJMBG());
+            pstatement.setString(4, voznja.getAutobus().getRegBrojVozila());
+            pstatement.setLong(5, voznja.getVoznjaID());
+            pstatement.executeUpdate();
+            pstatement.close();
     }
 
     @Override

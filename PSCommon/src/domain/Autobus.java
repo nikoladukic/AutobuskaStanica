@@ -5,13 +5,12 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  *
  * @author PC
  */
-public class Autobus implements Serializable {
+public class Autobus implements Serializable{
     
     private String regBrojVozila;
     private String markaAutobusa;
@@ -71,34 +70,8 @@ public class Autobus implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.regBrojVozila);
-        hash = 97 * hash + Objects.hashCode(this.markaAutobusa);
-        hash = 97 * hash + this.godinaProizvodnje;
-        hash = 97 * hash + this.brojMesta;
-        hash = 97 * hash + Objects.hashCode(this.vrstaAutobusa);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Autobus other = (Autobus) obj;
-        return true;
-    }
-
-    @Override
     public String toString() {
-        return  markaAutobusa+", "+brojMesta;
+        return regBrojVozila + ", " + markaAutobusa + ", " + brojMesta ;
     }
     
     

@@ -86,6 +86,8 @@ public class FrmVoznja extends javax.swing.JDialog {
         lblMestoDolaska.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblMestoDolaska.setText("Mesto dolaska");
 
+        cbAutobus.setToolTipText("");
+
         btnDodajVoznju.setText("Dodaj voznju");
         btnDodajVoznju.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

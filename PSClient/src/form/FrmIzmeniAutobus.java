@@ -6,6 +6,7 @@ package form;
 
 import communication.Communication;
 import domain.Autobus;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,6 +95,17 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
 
         tbVrsta.setEnabled(false);
 
+        jcbAutobusi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcbAutobusiMouseClicked(evt);
+            }
+        });
+        jcbAutobusi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbAutobusiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,8 +140,8 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblRegBroj)
                     .addComponent(jcbAutobusi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -162,12 +174,16 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -190,10 +206,15 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
             Autobus autobus = (Autobus)jcbAutobusi.getSelectedItem();
             autobus.setBrojMesta(brojMesta);
             Communication.getInstance().zapamtiAutobus(autobus);
+            JOptionPane.showMessageDialog(this,"Uspesno izvrsena izmena!");
+            jcbAutobusi.removeAllItems();
+            prepareIzmena();
         } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this,"Broj mesta mora biti upisan kao broj!");
         } catch (Exception ex) {
-            System.out.println("form.FrmIzmeniAutobus.btnIzmeniActionPerformed() "+ ex.getStackTrace());
+            JOptionPane.showMessageDialog(this, "Greska pri izmeni autobusa!","Greska",JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
         }
        
     }//GEN-LAST:event_btnIzmeniActionPerformed
@@ -201,6 +222,23 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
     private void tbRegBrojActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbRegBrojActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tbRegBrojActionPerformed
+
+    private void jcbAutobusiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAutobusiActionPerformed
+       Autobus autobus = (Autobus)jcbAutobusi.getSelectedItem();
+      if(autobus!=null){
+       tbBrojMesta.setText(autobus.getBrojMesta()+"");
+       tbGodProizvodnje.setText(autobus.getGodinaProizvodnje()+"");
+       tbMarka.setText(autobus.getMarkaAutobusa());
+       tbRegBroj.setText(autobus.getRegBrojVozila());
+       tbVrsta.setText(autobus.getVrstaAutobusa().toString());
+       tbBrojMesta.setEnabled(true);
+      }
+    }//GEN-LAST:event_jcbAutobusiActionPerformed
+
+    private void jcbAutobusiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbAutobusiMouseClicked
+       
+       
+    }//GEN-LAST:event_jcbAutobusiMouseClicked
 
     /**
      * @param args the command line arguments

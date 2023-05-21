@@ -5,12 +5,9 @@
 package repository.db.impl;
 
 import domain.Autobus;
-import domain.Vozac;
-import domain.Voznja;
 import domain.VrstaAutobusa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -46,8 +43,16 @@ public class RepositoryAutobus implements DbRepository<Autobus>{
     }
 
     @Override
-    public void edit(Autobus param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void edit(Autobus autobus) throws Exception {
+         String sql = "UPDATE autobus SET BrojMesta = ? WHERE RegBrojVozila= ? ";
+
+            Connection connection = DbConnectionFactory.getInstance().getConnection();
+
+            PreparedStatement pstatement = connection.prepareStatement(sql);
+            pstatement.setInt(1, autobus.getBrojMesta());
+            pstatement.setString(2, autobus.getRegBrojVozila());
+            pstatement.executeUpdate();
+            pstatement.close();
     }
 
     @Override

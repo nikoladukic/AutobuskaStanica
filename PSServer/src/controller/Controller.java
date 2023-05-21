@@ -40,9 +40,6 @@ public class Controller {
         this.repositoryMesto= new RepositoryMesto();
         this.repositoryVoznja= new RepositoryVoznja();
         this.repositoryVrstaAutobusa= new RepositoryVrstaAutobus();
-//        this.repositoryManufacturer = new RepositoryDBManufacturer();
-//        this.repositoryProduct = new RepositoryDBProduct();
-//        this.repositoryInvoice = new RepositoryDBInvoice();
         this.repositoryGeneric = new RepositoryDBGeneric();
     }
 
@@ -53,129 +50,108 @@ public class Controller {
         return controller;
     }
 
-//    public User login(String username, String password) throws Exception {
-//        List<User> users = repositoryUser.getAll();
-//        for (User user : users) {
-//            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-//                return user;
-//            }
-//        }
-//        //return null;
-//        throw new Exception("Unknown user!");
-//    }
-
     public List<Vozac> UcitajListuVozaca() throws Exception {
         return repositoryVozac.getAll();
     }
 
-  
     public void KreirajVozaca(Vozac vozac) throws Exception {
         ((DbRepository) repositoryVozac).connect();
         try {
             repositoryVozac.add(vozac);
             ((DbRepository) repositoryVozac).commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             ((DbRepository) repositoryVozac).rollback();
             throw e;
         } finally {
             ((DbRepository) repositoryVozac).disconnect();
         }
     }
+    
     public List<Autobus> UcitajListuAutobusa() throws Exception {
         return repositoryAutobus.getAll();
     }
+    
     public void KreirajAutobus(Autobus autobus) throws Exception {
         ((DbRepository) repositoryAutobus).connect();
         try {
             repositoryAutobus.add(autobus);
             ((DbRepository) repositoryAutobus).commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             ((DbRepository) repositoryAutobus).rollback();
             throw e;
         } finally {
             ((DbRepository) repositoryAutobus).disconnect();
         }
     }
+    
     public void DodajMesto(Mesto mesto) throws Exception {
         ((DbRepository) repositoryMesto).connect();
         try {
             repositoryMesto.add(mesto);
             ((DbRepository) repositoryMesto).commit();
         } catch (Exception e) {
-            e.printStackTrace();
+           System.out.println(e.getMessage());
             ((DbRepository) repositoryMesto).rollback();
             throw e;
         } finally {
             ((DbRepository) repositoryMesto).disconnect();
         }
     }
+    
     public List<Mesto> UcitajListuMesta() throws Exception {
         return repositoryMesto.getAll();
     }
-      public List<Voznja> UcitajListuVoznji() throws Exception {
+    
+    public List<Voznja> UcitajListuVoznji() throws Exception {
         return repositoryVoznja.getAll();
     }
-      public List<VrstaAutobusa> UcitajListuVrstiAutobusa() throws Exception {
+    
+    public List<VrstaAutobusa> UcitajListuVrstiAutobusa() throws Exception {
         return repositoryVrstaAutobusa.getAll();
     }
-//
-//    public List<Product> getAllProducts() throws Exception {
-//        List<Product> products = null;
-//        //((DbRepository)repositoryProduct).connect();
-//        try {
-//            products = repositoryProduct.getAll();
-//            //((DbRepository)repositoryProduct).commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            //((DbRepository)repositoryProduct).rollback();
-//            throw e;
-//        } finally {
-//            //((DbRepository)repositoryProduct).disconnect();
-//        }
-//        return products;
-//    }
-//
-//    public void deleteProduct(Product product) throws Exception {
-//        ((DbRepository) repositoryProduct).connect();
-//        try {
-//            repositoryProduct.delete(product);
-//            ((DbRepository) repositoryProduct).commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            ((DbRepository) repositoryProduct).rollback();
-//            throw e;
-//        } finally {
-//            ((DbRepository) repositoryProduct).disconnect();
-//        }
-//    }
-//
-//    public void editProduct(Product product) throws Exception {
-//        ((DbRepository) repositoryProduct).connect();
-//        try {
-//            ((DbRepository) repositoryProduct).edit(product);
-//            ((DbRepository) repositoryProduct).commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            ((DbRepository) repositoryProduct).rollback();
-//            throw e;
-//        } finally {
-//            ((DbRepository) repositoryProduct).disconnect();
-//        }
-//    }
-//
-//    public void addInvoice(Invoice invoice) throws Exception {
-//        ((DbRepository) repositoryInvoice).connect();
-//        try {
-//            repositoryInvoice.add(invoice);
-//            ((DbRepository) repositoryInvoice).commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            ((DbRepository) repositoryInvoice).rollback();
-//            throw e;
-//        } finally {
-//            ((DbRepository) repositoryInvoice).disconnect();
-//        }
-//    }
+
+    public void ZapamtiAutobus(Autobus autobus) throws Exception {
+        ((DbRepository) repositoryAutobus).connect();
+        try {
+            ((DbRepository) repositoryAutobus).edit(autobus);
+            ((DbRepository) repositoryAutobus).commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            ((DbRepository) repositoryAutobus).rollback();
+            throw e;
+        } finally {
+            ((DbRepository) repositoryAutobus).disconnect();
+        }
+    }
+    
+    public void ZapamtiVoznju(Voznja voznja) throws Exception {
+        ((DbRepository) repositoryVoznja).connect();
+        try {
+            ((DbRepository) repositoryVoznja).edit(voznja);
+            ((DbRepository) repositoryVoznja).commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            ((DbRepository) repositoryVoznja).rollback();
+            throw e;
+        } finally {
+            ((DbRepository) repositoryVoznja).disconnect();
+        }
+    }
+    
+    public void ZapamtiVozaca(Vozac vozac) throws Exception {
+        ((DbRepository) repositoryVozac).connect();
+        try {
+            ((DbRepository) repositoryVozac).edit(vozac);
+            ((DbRepository) repositoryVozac).commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            ((DbRepository) repositoryVozac).rollback();
+            throw e;
+        } finally {
+            ((DbRepository) repositoryVozac).disconnect();
+        }
+    }
+
 }

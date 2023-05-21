@@ -69,10 +69,18 @@ public class ProcessClientsRequests extends Thread {
                         case UcitajListuVrstiAutobusa:
                             response.setResult(Controller.getInstance().UcitajListuVrstiAutobusa());
                             break;  
-//                        case EDIT_PRODUCT:
-//                            Product productEdit = (Product) request.getArgument();
-//                            Controller.getInstance().editProduct(productEdit);
-//                            break;
+                        case ZapamtiAutobus:
+                            Autobus autobusEdit = (Autobus) request.getArgument();
+                            Controller.getInstance().ZapamtiAutobus(autobusEdit);
+                            break;
+                        case ZapamtiVoznju:
+                            Voznja voznjaEdit = (Voznja) request.getArgument();
+                            Controller.getInstance().ZapamtiVoznju(voznjaEdit);
+                            break;
+                        case ZapamtiVozaca:
+                            Vozac vozacEdit = (Vozac)request.getArgument();
+                            Controller.getInstance().ZapamtiVozaca(vozacEdit);
+                            break;
 //                        case DELETE_PRODUCT:
 //                            Product productDelete = (Product) request.getArgument();
 //                            Controller.getInstance().deleteProduct(productDelete);
