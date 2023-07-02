@@ -230,10 +230,14 @@ public class FrmVoznja extends javax.swing.JDialog {
         voznja.setAutobus((Autobus)cbAutobus.getSelectedItem());
         voznja.setVremePolaska(time);
         try {
-            Communication.getInstance().kreirajVoznju(voznja);
+            voznja = Communication.getInstance().kreirajVoznju(voznja);
             Communication.getInstance().kreirajDestinacijuVoznje(new DestinacijaVoznje(0,voznja,(Mesto)cbMestoDolaska.getSelectedItem()));
+            JOptionPane.showMessageDialog(this, "Voznja uspesno dodata.");
+            prepareComponents();
         } catch (Exception ex) {
             Logger.getLogger(FrmVoznja.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(this, "Greska pri dodavanju voznje, vec postoji!","Greska",JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
         }
          
     }//GEN-LAST:event_btnDodajVoznjuActionPerformed

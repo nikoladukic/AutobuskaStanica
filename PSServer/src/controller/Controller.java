@@ -12,6 +12,7 @@ import repository.Repository;
 import repository.db.DbRepository;
 import repository.db.impl.RepositoryAutobus;
 import repository.db.impl.RepositoryDBGeneric;
+import repository.db.impl.RepositoryDestinacija;
 import repository.db.impl.RepositoryMesto;
 
 import repository.db.impl.RepositoryVozac;
@@ -29,6 +30,7 @@ public class Controller {
     private final Repository repositoryMesto;
     private final Repository repositoryVoznja;
     private final Repository repositoryVrstaAutobusa;
+    private final Repository repositoryDestinacija;
    
     private final Repository repositoryGeneric;
 
@@ -41,6 +43,7 @@ public class Controller {
         this.repositoryVoznja= new RepositoryVoznja();
         this.repositoryVrstaAutobusa= new RepositoryVrstaAutobus();
         this.repositoryGeneric = new RepositoryDBGeneric();
+        this.repositoryDestinacija = new RepositoryDestinacija();
     }
 
     public static Controller getInstance() {
@@ -98,6 +101,33 @@ public class Controller {
         } finally {
             ((DbRepository) repositoryMesto).disconnect();
         }
+    }
+     public void KreirajDestinaciju(DestinacijaVoznje destinacija) throws Exception {
+        ((DbRepository) repositoryDestinacija).connect();
+        try {
+            repositoryDestinacija.add(destinacija);
+            ((DbRepository) repositoryDestinacija).commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            ((DbRepository) repositoryDestinacija).rollback();
+            throw e;
+        } finally {
+            ((DbRepository) repositoryDestinacija).disconnect();
+        }
+    }
+      public Voznja KreirajVoznju(Voznja voznja) throws Exception {
+        ((DbRepository) repositoryVoznja).connect();
+        try {
+            voznja = (Voznja)((DbRepository) repositoryVoznja).addAndReturn(voznja);
+            ((DbRepository) repositoryVoznja).commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            ((DbRepository) repositoryVoznja).rollback();
+            throw e;
+        } finally {
+            ((DbRepository) repositoryVoznja).disconnect();
+        }
+        return voznja;
     }
     
     public List<Mesto> UcitajListuMesta() throws Exception {

@@ -40,9 +40,14 @@ public class FrmMain extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setTime();
+        try{
         prepareTable(null, null);
         prepareComponents();
-    }
+        }
+        catch(Exception e){
+            
+        }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -29,21 +29,28 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
     }
 
     @Override
-    public void add(Voznja vozac) throws Exception {
-         String sql = "INSERT into Vozac VALUES (?,?,?,?,?)";
+    public void add(Voznja voznja) throws Exception {
+         String sql = "INSERT INTO voznja(datumpolaska,vremepolaska,jmbg,regBrojVozila) VALUES(?,?,?,?)";
 
             Connection connection = DbConnectionFactory.getInstance().getConnection();
 
-//            PreparedStatement pstatement = connection.prepareStatement(sql);
-//            pstatement.setString(1, vozac.getJMBG());
-//            pstatement.setString(2, vozac.getIme());
-//            pstatement.setString(3, vozac.getPrezime());
-//            pstatement.setDate(4, new java.sql.Date(vozac.getDatumRodjenja().getTime()));
-//            pstatement.setInt(5, vozac.getRadniStaz());
-//            pstatement.executeUpdate();
-//            pstatement.close();
+            PreparedStatement pstatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            pstatement.setDate(1, new java.sql.Date(voznja.getDatumPolaska().getTime()));
+            pstatement.setTime(2, voznja.getVremePolaska());
+            pstatement.setString(3, voznja.getVozac().getJMBG());
+            pstatement.setString(4, voznja.getAutobus().getRegBrojVozila());
+            pstatement.executeUpdate();
+            
+            ResultSet resKey = pstatement.getGeneratedKeys();
+            while(resKey.next()){
+            long voznjaID = resKey.getLong(1);
+            voznja.setVoznjaID(voznjaID);
+            }
+            
+            pstatement.close();
     }
 
+    
     @Override
     public void edit(Voznja voznja) throws Exception {
         String sql = "UPDATE autobus SET DatumPolaska = ?,VremePolaska=?,JMBG = ?,RegBrojVozila=? WHERE VoznjaID= ? ";
@@ -57,6 +64,7 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
             pstatement.setString(4, voznja.getAutobus().getRegBrojVozila());
             pstatement.setLong(5, voznja.getVoznjaID());
             pstatement.executeUpdate();
+           
             pstatement.close();
     }
 
@@ -110,6 +118,29 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
             }
         }
         return null;
+    }
+
+    @Override
+    public Voznja addAndReturn(Voznja voznja) throws Exception {
+        String sql = "INSERT INTO voznja(datumpolaska,vremepolaska,jmbg,regBrojVozila) VALUES(?,?,?,?)";
+
+            Connection connection = DbConnectionFactory.getInstance().getConnection();
+
+            PreparedStatement pstatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            pstatement.setDate(1, new java.sql.Date(voznja.getDatumPolaska().getTime()));
+            pstatement.setTime(2, voznja.getVremePolaska());
+            pstatement.setString(3, voznja.getVozac().getJMBG());
+            pstatement.setString(4, voznja.getAutobus().getRegBrojVozila());
+            pstatement.executeUpdate();
+            
+            ResultSet resKey = pstatement.getGeneratedKeys();
+            while(resKey.next()){
+            long voznjaID = resKey.getLong(1);
+            voznja.setVoznjaID(voznjaID);
+            }
+            
+            pstatement.close();
+            return voznja;
     }
     
 }

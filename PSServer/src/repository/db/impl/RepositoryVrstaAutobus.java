@@ -4,13 +4,8 @@
  */
 package repository.db.impl;
 
-import domain.Autobus;
-import domain.Vozac;
-import domain.Voznja;
 import domain.VrstaAutobusa;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -67,6 +62,11 @@ public class RepositoryVrstaAutobus implements DbRepository<VrstaAutobusa>{
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public VrstaAutobusa addAndReturn(VrstaAutobusa param) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

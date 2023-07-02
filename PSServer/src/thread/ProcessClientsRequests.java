@@ -81,6 +81,15 @@ public class ProcessClientsRequests extends Thread {
                             Vozac vozacEdit = (Vozac)request.getArgument();
                             Controller.getInstance().ZapamtiVozaca(vozacEdit);
                             break;
+                        case KreirajDestinacijuVoznje:
+                            DestinacijaVoznje destinacija = (DestinacijaVoznje) request.getArgument();
+                            Controller.getInstance().KreirajDestinaciju(destinacija);
+                            break;
+                        case KreirajVoznju:
+                            Voznja voznja = (Voznja)request.getArgument();
+                            voznja = Controller.getInstance().KreirajVoznju(voznja);
+                            response.setResult(voznja);
+                            
 //                        case DELETE_PRODUCT:
 //                            Product productDelete = (Product) request.getArgument();
 //                            Controller.getInstance().deleteProduct(productDelete);

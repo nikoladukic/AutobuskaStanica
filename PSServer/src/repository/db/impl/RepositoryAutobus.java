@@ -97,5 +97,10 @@ public class RepositoryAutobus implements DbRepository<Autobus>{
         }
         return null;
     }
+
+    @Override
+    public Autobus addAndReturn(Autobus param) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

@@ -142,13 +142,14 @@ public class Communication {
             throw response.getException();
         }
     }
-     public void kreirajVoznju(Voznja voznja) throws Exception {
+     public Voznja kreirajVoznju(Voznja voznja) throws Exception {
         Request request=new Request(Operation.KreirajVoznju, voznja);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
-            
+           return (Voznja)response.getResult();
         }else{
+            System.out.println("communication.Communication.kreirajVoznju()");
             throw response.getException();
         }
     }
