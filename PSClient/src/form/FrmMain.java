@@ -7,6 +7,7 @@ package form;
 import domain.Mesto;
 import communication.Communication;
 import domain.Autobus;
+import domain.DestinacijaVoznje;
 import domain.Vozac;
 import domain.Voznja;
 import java.awt.Dimension;
@@ -81,6 +82,7 @@ public class FrmMain extends javax.swing.JFrame {
         JMenu = new javax.swing.JMenu();
         mbDodajAutobus = new javax.swing.JMenuItem();
         mbIzmeniAutobus = new javax.swing.JMenuItem();
+        mbIzmeniAutobus1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mbDodajVozaca = new javax.swing.JMenuItem();
         mbIzmeniVozaca = new javax.swing.JMenuItem();
@@ -235,6 +237,14 @@ public class FrmMain extends javax.swing.JFrame {
         });
         JMenu.add(mbIzmeniAutobus);
 
+        mbIzmeniAutobus1.setText("Pretrazi");
+        mbIzmeniAutobus1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mbIzmeniAutobus1ActionPerformed(evt);
+            }
+        });
+        JMenu.add(mbIzmeniAutobus1);
+
         jMenuBar1.add(JMenu);
 
         jMenu3.setText("Vozac");
@@ -350,7 +360,9 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_tbMestoActionPerformed
 
     private void btnPretaziVoznjuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretaziVoznjuActionPerformed
-        // TODO add your handling code here:
+
+       
+        
     }//GEN-LAST:event_btnPretaziVoznjuActionPerformed
 
     private void JlMestaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JlMestaMouseClicked
@@ -386,6 +398,11 @@ public class FrmMain extends javax.swing.JFrame {
         new FrmIzmeniAutobus(new JFrame(), true).setVisible(true);
     }//GEN-LAST:event_mbIzmeniAutobusActionPerformed
 
+    private void mbIzmeniAutobus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbIzmeniAutobus1ActionPerformed
+       
+       new FrmPretaziAutobus(new JFrame(),true).setVisible(true);
+    }//GEN-LAST:event_mbIzmeniAutobus1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -419,6 +436,7 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem mbDodajVozaca;
     private javax.swing.JMenuItem mbDodajVoznju;
     private javax.swing.JMenuItem mbIzmeniAutobus;
+    private javax.swing.JMenuItem mbIzmeniAutobus1;
     private javax.swing.JMenuItem mbIzmeniVozaca;
     private javax.swing.JMenuItem mbIzmeniVoznju;
     private javax.swing.JTable tableVoznje;

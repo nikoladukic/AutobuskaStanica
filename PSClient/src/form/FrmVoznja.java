@@ -235,7 +235,6 @@ public class FrmVoznja extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Voznja uspesno dodata.");
             prepareComponents();
         } catch (Exception ex) {
-            Logger.getLogger(FrmVoznja.class.getName()).log(Level.SEVERE, null, ex);
              JOptionPane.showMessageDialog(this, "Greska pri dodavanju voznje, vec postoji!","Greska",JOptionPane.ERROR_MESSAGE);
             System.out.println(ex.getMessage());
         }

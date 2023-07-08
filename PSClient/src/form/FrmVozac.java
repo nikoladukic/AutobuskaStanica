@@ -63,6 +63,7 @@ public class FrmVozac extends javax.swing.JDialog {
         tbRadniStaz = new javax.swing.JTextField();
         btnDodajVozaca = new javax.swing.JToggleButton();
         brnIzmeniVozaca = new javax.swing.JToggleButton();
+        btnPrikaziSve = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableVozaci = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -93,10 +94,17 @@ public class FrmVozac extends javax.swing.JDialog {
             }
         });
 
-        brnIzmeniVozaca.setText("Izmeni vozaca");
+        brnIzmeniVozaca.setText("Pretrazi vozaca po imenu");
         brnIzmeniVozaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 brnIzmeniVozacaActionPerformed(evt);
+            }
+        });
+
+        btnPrikaziSve.setText("Prikazi sve ");
+        btnPrikaziSve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrikaziSveActionPerformed(evt);
             }
         });
 
@@ -128,10 +136,11 @@ public class FrmVozac extends javax.swing.JDialog {
                             .addComponent(tbRadniStaz)
                             .addComponent(jdpDatumRodjenja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 305, Short.MAX_VALUE)
-                        .addComponent(brnIzmeniVozaca, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPrikaziSve, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(brnIzmeniVozaca, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnDodajVozaca, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnDodajVozaca, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))
                 .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
@@ -157,10 +166,11 @@ public class FrmVozac extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRadniStaz, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tbRadniStaz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDodajVozaca)
-                    .addComponent(brnIzmeniVozaca))
+                    .addComponent(brnIzmeniVozaca)
+                    .addComponent(btnPrikaziSve))
                 .addGap(15, 15, 15))
         );
 
@@ -184,12 +194,12 @@ public class FrmVozac extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -202,8 +212,8 @@ public class FrmVozac extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -262,8 +272,34 @@ public class FrmVozac extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDodajVozacaActionPerformed
 
     private void brnIzmeniVozacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnIzmeniVozacaActionPerformed
-        new FrmIzmeniVozaca(new JFrame(),true);
+        String ime=tbIme.getText();
+        String prezime=tbPrezime.getText();
+        
+        
+        if(ime.length()<2){
+            JOptionPane.showMessageDialog(this, "Ime mora biti duze od 2");
+            return;
+        }
+         
+        try {
+            List<Vozac> vozaci=Communication.getInstance().nadjiVozaca(new Vozac(null,ime,prezime,null,0));
+            TableModel model = new VozacTableModel(vozaci);
+            jTableVozaci.setModel(model);
+            if(vozaci==null){
+              JOptionPane.showMessageDialog(this, "Greska pri ucitavanju vozaca, ne postoji!","Greska",JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_brnIzmeniVozacaActionPerformed
+
+    private void btnPrikaziSveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrikaziSveActionPerformed
+        prepareTable();
+        tbIme.setText("");
+        tbJmbg.setText("");
+        tbPrezime.setText("");
+        tbRadniStaz.setText("");
+    }//GEN-LAST:event_btnPrikaziSveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,6 +309,7 @@ public class FrmVozac extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton brnIzmeniVozaca;
     private javax.swing.JToggleButton btnDodajVozaca;
+    private javax.swing.JToggleButton btnPrikaziSve;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil2;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil3;

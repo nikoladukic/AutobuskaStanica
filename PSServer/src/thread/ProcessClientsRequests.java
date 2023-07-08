@@ -5,6 +5,7 @@
  */
 package thread;
 
+import communication.Operation;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +63,9 @@ public class ProcessClientsRequests extends Thread {
                         case UcitajListuVoznji:
                             response.setResult(Controller.getInstance().UcitajListuVoznji());
                             break;    
+                        case UcitajListuDestinacija:
+                            response.setResult(Controller.getInstance().UcitajListuDestinacija());
+                            break;  
                         case DodajMesto:
                              Mesto mesto = (Mesto) request.getArgument();
                             Controller.getInstance().DodajMesto(mesto);
@@ -89,7 +93,21 @@ public class ProcessClientsRequests extends Thread {
                             Voznja voznja = (Voznja)request.getArgument();
                             voznja = Controller.getInstance().KreirajVoznju(voznja);
                             response.setResult(voznja);
+                             break;
+                        case PretraziAutobus:
+                            Autobus autobus1 = (Autobus) request.getArgument();
+                            response.setResult(Controller.getInstance().pretraziAutobus(autobus1));
+                            break;
+                        case NadjiVozaca:
+                             Vozac vozac1 = (Vozac) request.getArgument();
+                            response.setResult(Controller.getInstance().nadjiVozaca(vozac1));
+                            break;
                             
+                        case LogIn:
+                            User user= (User)request.getArgument();
+                            response.setResult(Controller.getInstance().logIn(user));
+                            break;
+                         
 //                        case DELETE_PRODUCT:
 //                            Product productDelete = (Product) request.getArgument();
 //                            Controller.getInstance().deleteProduct(productDelete);

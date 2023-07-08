@@ -36,7 +36,7 @@ public class AutobusTableModel extends AbstractTableModel {
             case 0: return autobus.getRegBrojVozila();
             case 1: return autobus.getMarkaAutobusa();
             case 2: return autobus.getGodinaProizvodnje();
-            case 3: return autobus.getMarkaAutobusa();
+            case 3: return autobus.getBrojMesta();
             case 4: return autobus.getVrstaAutobusa();
             default:
                 return "n/a";

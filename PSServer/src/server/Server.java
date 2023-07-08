@@ -15,10 +15,13 @@ import thread.ProcessClientsRequests;
  */
 public class Server {
 
+    boolean active=  true;
+    
     public void startServer() {
+        active = true;
         try {
             ServerSocket serverSocket = new ServerSocket(9001);
-            while (true) {
+            while (active) {
 
                 System.out.println("Waiting for connection...");
                 Socket socket = serverSocket.accept();
@@ -29,6 +32,9 @@ public class Server {
             ex.printStackTrace();
         }
 
+    }
+    public void stopServer(){
+        active = false;
     }
 
     private void handleClient(Socket socket) throws Exception {

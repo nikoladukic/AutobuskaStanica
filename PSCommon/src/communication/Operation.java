@@ -29,6 +29,8 @@ public enum Operation  implements Serializable{
     UcitajListuVoznji,
     GetMestoZaZadatuVoznju,
     KreirajDestinacijuVoznje,
-    UcitajListuVrstiAutobusa
+    UcitajListuVrstiAutobusa,
+    UcitajListuDestinacija,
+    LogIn
     
 }

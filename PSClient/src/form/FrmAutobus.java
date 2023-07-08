@@ -281,8 +281,9 @@ public class FrmAutobus extends javax.swing.JDialog {
 
     private boolean daLiPostoji(String regBroj) {
         try {
-            List<Autobus> autobusi = communication.Communication.getInstance().pretraziAutobus(regBroj);
-            if(autobusi!=null)return true;
+             Autobus autobus =  new Autobus(tbRegBroj.getText(),null,0,0,null);
+            List<Autobus> autobusi = communication.Communication.getInstance().pretraziAutobus(autobus);
+            if(autobusi!=null&& !autobusi.isEmpty())return true;
             else return false;
         } catch (Exception ex) {
             System.out.println(ex.getStackTrace());
@@ -297,6 +298,7 @@ public class FrmAutobus extends javax.swing.JDialog {
             TableModel model=new AutobusTableModel(autobusi);
             jTableAutobusi.setModel(model);
             List<VrstaAutobusa> vrste=Communication.getInstance().UcitajListuVrstiAutobusa();
+            cbVrsta.removeAll();
             for (VrstaAutobusa vrsta : vrste) {
                 cbVrsta.addItem(vrsta);
             }

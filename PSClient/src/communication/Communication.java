@@ -4,6 +4,7 @@ import domain.Autobus;
 import domain.DestinacijaVoznje;
 import domain.Voznja;
 import domain.Mesto;
+import domain.User;
 import domain.Vozac;
 import domain.VrstaAutobusa;
 import java.net.Socket;
@@ -61,12 +62,22 @@ public class Communication {
             throw response.getException();
         }
     }
-    public List<Autobus> pretraziAutobus(String regBroj) throws Exception{
-        Request request=new Request(Operation.PretraziAutobus, null);
+    public List<Autobus> pretraziAutobus(Autobus autobus) throws Exception{
+        Request request=new Request(Operation.PretraziAutobus, autobus);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
             return (List<Autobus>)response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+    public List<Vozac> nadjiVozaca(Vozac vozac) throws Exception{
+        Request request=new Request(Operation.NadjiVozaca, vozac);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<Vozac>)response.getResult();
         }else{
             throw response.getException();
         }
@@ -150,6 +161,7 @@ public class Communication {
            return (Voznja)response.getResult();
         }else{
             System.out.println("communication.Communication.kreirajVoznju()");
+            
             throw response.getException();
         }
     }
@@ -193,6 +205,16 @@ public class Communication {
             throw response.getException();
         }
     }
+    public List<User> logIn(User user) throws Exception{
+        Request request=new Request(Operation.LogIn, user);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<User>)response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
     public void kreirajDestinacijuVoznje(DestinacijaVoznje destinacija) throws Exception {
         Request request=new Request(Operation.KreirajDestinacijuVoznje, destinacija);
         sender.send(request);
@@ -200,6 +222,17 @@ public class Communication {
         if(response.getException()==null){
             
         }else{
+            throw response.getException();
+        }
+    }
+     public List<DestinacijaVoznje> UcitajListuDestinacija() throws Exception{
+        Request request=new Request(Operation.UcitajListuDestinacija, null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<DestinacijaVoznje>)response.getResult();
+        }else{
+            System.out.println("communication.Communication.UcitajListuDestinacija()");
             throw response.getException();
         }
     }

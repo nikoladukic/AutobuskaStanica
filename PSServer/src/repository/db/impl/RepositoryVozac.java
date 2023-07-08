@@ -22,7 +22,30 @@ public class RepositoryVozac implements DbRepository<Vozac>{
 
     @Override
     public List<Vozac> getAll(Vozac param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String sql = "select * from vozac where Ime= '"+param.getIme()+ "' or Prezime= '"+param.getPrezime()+"'";
+            List<Vozac> vozaci = new ArrayList<>();
+            Connection connection = DbConnectionFactory.getInstance().getConnection();
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                Vozac vozac = new Vozac();
+                vozac.setJMBG(rs.getString("JMBG"));
+                vozac.setIme(rs.getString("Ime"));
+                vozac.setPrezime(rs.getString("Prezime"));
+                vozac.setDatumRodjenja(new java.util.Date(rs.getDate("DatumRodjenja").getTime()));
+                vozac.setRadniStaz(rs.getInt("RadniStaz"));
+                vozaci.add(vozac);
+                System.out.println(vozac);
+            }
+            rs.close();
+            statement.close();
+            return vozaci;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override

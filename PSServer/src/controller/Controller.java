@@ -14,6 +14,7 @@ import repository.db.impl.RepositoryAutobus;
 import repository.db.impl.RepositoryDBGeneric;
 import repository.db.impl.RepositoryDestinacija;
 import repository.db.impl.RepositoryMesto;
+import repository.db.impl.RepositoryUser;
 
 import repository.db.impl.RepositoryVozac;
 import repository.db.impl.RepositoryVoznja;
@@ -31,6 +32,7 @@ public class Controller {
     private final Repository repositoryVoznja;
     private final Repository repositoryVrstaAutobusa;
     private final Repository repositoryDestinacija;
+    private final Repository repositoryUser;
    
     private final Repository repositoryGeneric;
 
@@ -44,6 +46,7 @@ public class Controller {
         this.repositoryVrstaAutobusa= new RepositoryVrstaAutobus();
         this.repositoryGeneric = new RepositoryDBGeneric();
         this.repositoryDestinacija = new RepositoryDestinacija();
+        this.repositoryUser = new RepositoryUser();
     }
 
     public static Controller getInstance() {
@@ -102,6 +105,7 @@ public class Controller {
             ((DbRepository) repositoryMesto).disconnect();
         }
     }
+    
      public void KreirajDestinaciju(DestinacijaVoznje destinacija) throws Exception {
         ((DbRepository) repositoryDestinacija).connect();
         try {
@@ -141,6 +145,20 @@ public class Controller {
     public List<VrstaAutobusa> UcitajListuVrstiAutobusa() throws Exception {
         return repositoryVrstaAutobusa.getAll();
     }
+    public List<VrstaAutobusa> pretraziAutobus(Autobus autobus) throws Exception {
+        return repositoryAutobus.getAll(autobus);
+    }
+    public List<VrstaAutobusa> nadjiVozaca(Vozac vozac) throws Exception {
+        return repositoryVozac.getAll(vozac);
+    }
+      public List<DestinacijaVoznje> UcitajListuDestinacija() throws Exception {
+        return repositoryDestinacija.getAll();
+    }
+      
+      public List<User> logIn(User user) throws Exception {
+        return repositoryUser.getAll(user);
+    }
+    
 
     public void ZapamtiAutobus(Autobus autobus) throws Exception {
         ((DbRepository) repositoryAutobus).connect();
