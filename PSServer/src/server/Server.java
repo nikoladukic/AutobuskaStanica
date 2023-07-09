@@ -13,15 +13,16 @@ import thread.ProcessClientsRequests;
  *
  * @author Cartman
  */
-public class Server {
+public class Server extends Thread{
 
-    boolean active=  true;
-    
-    public void startServer() {
-        active = true;
+   
+    ProcessClientsRequests processClientsRequests=null;
+    @Override
+    public void run() { 
         try {
             ServerSocket serverSocket = new ServerSocket(9001);
-            while (active) {
+            
+            while (!isInterrupted()) {
 
                 System.out.println("Waiting for connection...");
                 Socket socket = serverSocket.accept();
@@ -33,12 +34,11 @@ public class Server {
         }
 
     }
-    public void stopServer(){
-        active = false;
-    }
+   
 
     private void handleClient(Socket socket) throws Exception {
-        ProcessClientsRequests processClientsRequests = new ProcessClientsRequests(socket);
+        processClientsRequests = new ProcessClientsRequests(socket);
         processClientsRequests.start();
     }
+    
 }

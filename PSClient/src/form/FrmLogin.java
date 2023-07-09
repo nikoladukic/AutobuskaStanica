@@ -134,8 +134,9 @@ public class FrmLogin extends javax.swing.JDialog {
          try {
              List<User> users= Communication.getInstance().logIn(user);
             if(users.isEmpty()){
-              JOptionPane.showMessageDialog(this,"Niste dobro uneli kredencijale, pokusajte ponovo");
+              JOptionPane.showMessageDialog(this,"Niste dobro uneli kredencijale, pokusajte ponovo","Greska",JOptionPane.ERROR_MESSAGE);
             }else{
+                 JOptionPane.showMessageDialog(this, "Uspesno ste se prijavili na sistem");
                  this.dispose();
                  new FrmMain().setVisible(true);
             }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import domain.Autobus;
+import domain.Mesto;
 import domain.Vozac;
 import domain.Voznja;
 import java.text.SimpleDateFormat;
@@ -15,9 +16,11 @@ public class VoznjaTableModel extends AbstractTableModel {
     List<Voznja> voznje;
     String [] columns=new String[]{ "Datum polaska", "Vreme polaska", "Vozac", "Autobus","Mesto Polaska", "Mesto dolaska"};
     Class[]classes= new Class[]{Object.class,Object.class,Object.class,Object.class,Object.class,Object.class};
-    
-     public VoznjaTableModel(List<Voznja> voznje) {
+    List<Mesto> mesta;
+  
+     public VoznjaTableModel(List<Voznja> voznje,List<Mesto> mesta) {
         this.voznje = voznje;
+        this.mesta = mesta;
     }
     @Override
     public int getRowCount() {
@@ -35,6 +38,7 @@ public class VoznjaTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
             
         Voznja voznja=voznje.get(rowIndex);
+        Mesto mesto = mesta.get(rowIndex);
         switch (columnIndex) {
             case 0: 
                 SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -48,6 +52,8 @@ public class VoznjaTableModel extends AbstractTableModel {
             case 2: return voznja.getVozac();
             case 3: return voznja.getAutobus();
             case 4: return "Kraljevo";
+            case 5: return mesto.getNaziv();
+            
             default:
                 return "n/a";
         }

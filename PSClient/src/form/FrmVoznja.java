@@ -307,9 +307,12 @@ public class FrmVoznja extends javax.swing.JDialog {
         private void prepareComponents() {
         try {
             List<Voznja> voznje = Communication.getInstance().ucitajListuVoznji();
-            TableModel model = new VoznjaTableModel(voznje);
+             List<Mesto> mesta = kreirajMestaPoRasporeduVoznji(voznje);
+            
+            TableModel model = new VoznjaTableModel(voznje,mesta);
+            
             jtableVoznje.setModel(model);
-            List<Mesto> mesta=Communication.getInstance().ucitajListuMesta();
+            mesta=Communication.getInstance().ucitajListuMesta();
             for (Mesto mesto : mesta) {
                 cbMestoDolaska.addItem(mesto);
             }
@@ -326,5 +329,52 @@ public class FrmVoznja extends javax.swing.JDialog {
             ex.printStackTrace();
         }
     
+    }
+         private List<Mesto> ucitajListuMesta() {
+        try {
+            return (List<Mesto>)Communication.getInstance().ucitajListuMesta();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    private List<DestinacijaVoznje> ucitajListuDestinacija() {
+        try {
+            return (List<DestinacijaVoznje>)Communication.getInstance().UcitajListuDestinacija();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    private List<Mesto> kreirajMestaPoRasporeduVoznji(List<Voznja> voznje) {
+        List<Mesto> mesta = new ArrayList<>();
+        for (Voznja voznja : voznje) {
+            if(GetMestoFromDestinacija(voznja.getVoznjaID())!=null){
+                mesta.add(GetMestoFromDestinacija(voznja.getVoznjaID()));
+            }
+        }
+        return mesta;
+    }
+    
+    private Mesto GetMestoFromDestinacija(long voznjaID){
+        List<DestinacijaVoznje> destinacije =  ucitajListuDestinacija();
+        for (DestinacijaVoznje destinacijaVoznje : destinacije) {
+            if(destinacijaVoznje.getVoznja().getVoznjaID() == voznjaID){
+                Mesto mesto =destinacijaVoznje.getMesto();
+                mesto.setNaziv(getNazivMesta(mesto.getMestoID()));
+                return mesto;
+            }
+        }
+        return null;
+    }
+    private String getNazivMesta(long mestoID){
+        List<Mesto> mesta = ucitajListuMesta();
+        for (Mesto mesto : mesta) {
+            if(mesto.getMestoID()== mestoID){
+                return mesto.getNaziv();
+            }
+        }
+        return null;
     }
 }

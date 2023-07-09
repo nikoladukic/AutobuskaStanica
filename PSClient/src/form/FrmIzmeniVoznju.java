@@ -46,7 +46,6 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         btnIzmeni = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jdpDatumPolaska = new com.toedter.calendar.JDateChooser();
@@ -65,7 +64,6 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
         tbDatum = new javax.swing.JTextField();
         tbVreme = new javax.swing.JTextField();
         tbVozac = new javax.swing.JTextField();
-        tbMestoDolaska = new javax.swing.JTextField();
         tbAutobus = new javax.swing.JTextField();
         cbVoznje = new javax.swing.JComboBox<>();
 
@@ -85,9 +83,6 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Autobus");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Mesto dolaska");
 
         btnIzmeni.setText("Izmeni voznju");
         btnIzmeni.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +164,7 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(cbAutobus, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 52, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -190,8 +185,6 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
         });
 
         tbVozac.setEnabled(false);
-
-        tbMestoDolaska.setEnabled(false);
 
         tbAutobus.setEnabled(false);
 
@@ -223,14 +216,12 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
                     .addGroup(lblVoznjaLayout.createSequentialGroup()
                         .addGroup(lblVoznjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(lblVoznjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tbVreme)
                             .addComponent(tbVozac)
-                            .addComponent(tbMestoDolaska, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tbAutobus, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
@@ -257,15 +248,11 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
                 .addGroup(lblVoznjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tbAutobus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(lblVoznjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(tbMestoDolaska, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(36, 36, 36)
                 .addComponent(btnIzmeni)
-                .addContainerGap())
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -301,12 +288,7 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
         tbVreme.setText(voznja.getVremePolaska().toString());
         tbVozac.setText(voznja.getVozac().toString());
         }
-        try {
-            Mesto mesto = Communication.getInstance().getMestoZaZadatuVoznju(voznja);
-            tbMestoDolaska.setText(mesto.getNaziv());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        
         
     }//GEN-LAST:event_cbVoznjeActionPerformed
 
@@ -322,6 +304,7 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
         voznja.setDatumPolaska((Date)jdpDatumPolaska.getDate());
         voznja.setAutobus((Autobus)cbAutobus.getSelectedItem());
         voznja.setVremePolaska(time);
+        
         try {
 
              Communication.getInstance().zapamtiVoznju(voznja);
@@ -352,7 +335,6 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -364,7 +346,6 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
     private javax.swing.JTextField tbAutobus;
     private javax.swing.JTextField tbDatum;
     private javax.swing.JTextField tbHours;
-    private javax.swing.JTextField tbMestoDolaska;
     private javax.swing.JTextField tbMinutes;
     private javax.swing.JTextField tbSecundes;
     private javax.swing.JTextField tbVozac;

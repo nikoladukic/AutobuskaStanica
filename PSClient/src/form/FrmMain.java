@@ -361,8 +361,19 @@ public class FrmMain extends javax.swing.JFrame {
 
     private void btnPretaziVoznjuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPretaziVoznjuActionPerformed
 
+        try {
+            String nazivMesta = tbMesto.getText();
+            Date datum = jDTPDatum.getDate();
+            if(nazivMesta.isEmpty()){
+                JOptionPane.showConfirmDialog(this, "Morate izbarati grad za koji pretrazujete");
+            }
+           
+            pretraziVoznjeZaZadatiKriterijum(nazivMesta,datum);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
        
-        
     }//GEN-LAST:event_btnPretaziVoznjuActionPerformed
 
     private void JlMestaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JlMestaMouseClicked
@@ -451,32 +462,113 @@ public class FrmMain extends javax.swing.JFrame {
     private void prepareTable(Mesto mesto, Date datum) {
        List<Voznja> voznje=new ArrayList<>();
        List<Voznja> voznjePom=new ArrayList<>();
+       List<Mesto> mesta=new ArrayList<>();
        TableModel model;
         try {
-            voznje = Communication.getInstance().nadjiVoznju(mesto.getNaziv());
+            
+            
             if(mesto==null && datum==null){
-            model=new VoznjaTableModel(voznje);
+            model=new VoznjaTableModel(voznje,mesta);
             tableVoznje.setModel(model);
             }else{
                 for (Voznja voznja : voznje) {
                     
                 }
             }
-            model=new VoznjaTableModel(voznje);
+            model=new VoznjaTableModel(voznje,mesta);
             tableVoznje.setModel(model);
         } catch (Exception ex) {
             Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        
+        
     }
     private void prepareComponents() {
         try {
             List<Voznja> voznje = Communication.getInstance().ucitajListuVoznji();
-            TableModel model = new VoznjaTableModel(voznje);
+            List<Mesto> mesta = kreirajMestaPoRasporeduVoznji(voznje);
+            TableModel model = new VoznjaTableModel(voznje,mesta);
             tableVoznje.setModel(model);
             
         
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private List<Mesto> ucitajListuMesta() {
+        try {
+            return (List<Mesto>)Communication.getInstance().ucitajListuMesta();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    private List<DestinacijaVoznje> ucitajListuDestinacija() {
+        try {
+            return (List<DestinacijaVoznje>)Communication.getInstance().UcitajListuDestinacija();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    private List<Mesto> kreirajMestaPoRasporeduVoznji(List<Voznja> voznje) {
+        List<Mesto> mesta = new ArrayList<>();
+        for (Voznja voznja : voznje) {
+            if(GetMestoFromDestinacija(voznja.getVoznjaID())!=null){
+                mesta.add(GetMestoFromDestinacija(voznja.getVoznjaID()));
+            }
+        }
+        return mesta;
+    }
+    
+    private Mesto GetMestoFromDestinacija(long voznjaID){
+        List<DestinacijaVoznje> destinacije =  ucitajListuDestinacija();
+        for (DestinacijaVoznje destinacijaVoznje : destinacije) {
+            if(destinacijaVoznje.getVoznja().getVoznjaID() == voznjaID){
+                Mesto mesto =destinacijaVoznje.getMesto();
+                mesto.setNaziv(getNazivMesta(mesto.getMestoID()));
+                return mesto;
+            }
+        }
+        return null;
+    }
+    private String getNazivMesta(long mestoID){
+        List<Mesto> mesta = ucitajListuMesta();
+        for (Mesto mesto : mesta) {
+            if(mesto.getMestoID()== mestoID){
+                return mesto.getNaziv();
+            }
+        }
+        return null;
+    }
+
+    private void pretraziVoznjeZaZadatiKriterijum(String nazivMesta, Date datum) {
+         List<Voznja> voznje;
+         List<Voznja> voznjePretrazene = new ArrayList<>();
+         List<Mesto> mestaPretrazena = new ArrayList<>();
+        try {
+            voznje = Communication.getInstance().ucitajListuVoznji();
+            List<Mesto> mesta = kreirajMestaPoRasporeduVoznji(voznje);
+            for (int i = 0; i < voznje.size(); i++) {
+                if(voznje.get(i).getDatumPolaska().equals(datum) &&
+                        mesta.get(i).getNaziv().equals(nazivMesta)){
+                    voznjePretrazene.add(voznje.get(i));
+                    mestaPretrazena.add(mesta.get(i));
+                }
+            }
+            
+            TableModel model = new VoznjaTableModel(voznjePretrazene,mestaPretrazena);
+            tableVoznje.setModel(model);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+            
+            
+        
     }
 }

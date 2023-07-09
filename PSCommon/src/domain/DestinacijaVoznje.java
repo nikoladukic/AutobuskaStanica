@@ -16,6 +16,10 @@ public class DestinacijaVoznje implements Serializable{
     Voznja voznja;
     Mesto mesto;
 
+    public DestinacijaVoznje() {
+    }
+
+    
     public DestinacijaVoznje(int destinacijaID, Voznja voznja, Mesto mesto) {
         this.destinacijaID = destinacijaID;
         this.voznja = voznja;

@@ -5,7 +5,8 @@
  */
 package main;
 
-import form.FrmMain;
+import form.FrmMainServer;
+import form.FrmMainServer;
 import server.Server;
 
 /**
@@ -14,6 +15,6 @@ import server.Server;
  */
 public class Main {
     public static void main(String[] args) {
-        new FrmMain().setVisible(true);
+        new FrmMainServer().setVisible(true);
     }
 }

@@ -23,7 +23,8 @@ public class Voznja implements Serializable{
     public Voznja() {
     }
 
-    public Voznja( Date datumPolaska, Time vremePolaska, Vozac vozac, Autobus autobus) {
+    public Voznja( long voznjaID,Date datumPolaska, Time vremePolaska, Vozac vozac, Autobus autobus) {
+        this.voznjaID = voznjaID;
         this.datumPolaska = datumPolaska;
         this.vremePolaska = vremePolaska;
         this.vozac = vozac;

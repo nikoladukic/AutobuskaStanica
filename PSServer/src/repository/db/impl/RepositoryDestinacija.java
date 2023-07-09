@@ -6,6 +6,7 @@ package repository.db.impl;
 
 import domain.Autobus;
 import domain.DestinacijaVoznje;
+import domain.Mesto;
 import domain.Vozac;
 import domain.Voznja;
 import java.sql.Connection;
@@ -57,8 +58,26 @@ public class RepositoryDestinacija implements DbRepository<DestinacijaVoznje>{
 
     @Override
     public List<DestinacijaVoznje> getAll() {
+        
         try {
-           return  null;
+           String sql="Select * from destinacijavoznje" ;
+            List<DestinacijaVoznje> destinacije =  new ArrayList<>();
+            Connection connection = DbConnectionFactory.getInstance().getConnection();
+            
+            Statement statement = connection.prepareStatement(sql);
+            
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                DestinacijaVoznje destinacija = new DestinacijaVoznje();
+                destinacija.setDestinacijaID(rs.getInt("RedniBroj"));
+                destinacija.setMesto(new Mesto(rs.getInt("MestoID"),null));
+                destinacija.setVoznja(new Voznja(rs.getLong("VoznjaID"),null,null,null,null));
+                
+                destinacije.add(destinacija);
+            }
+            rs.close();
+            statement.close();
+            return destinacije;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;

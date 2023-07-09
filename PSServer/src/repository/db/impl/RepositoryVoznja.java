@@ -53,7 +53,7 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
     
     @Override
     public void edit(Voznja voznja) throws Exception {
-        String sql = "UPDATE autobus SET DatumPolaska = ?,VremePolaska=?,JMBG = ?,RegBrojVozila=? WHERE VoznjaID= ? ";
+        String sql = "UPDATE voznja SET DatumPolaska = ?,VremePolaska=?,JMBG = ?,RegBrojVozila=? WHERE VoznjaID= ? ";
 
             Connection connection = DbConnectionFactory.getInstance().getConnection();
 
@@ -84,6 +84,7 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Voznja voznja = new Voznja();
+                voznja.setVoznjaID(rs.getLong("VoznjaID"));
                 voznja.setDatumPolaska(new java.util.Date(rs.getDate("DatumPolaska").getTime()));
                 voznja.setVremePolaska(rs.getTime("VremePolaska"));
                 voznja.setVozac(getVozacForJmbg(rs.getString("JMBG")));
