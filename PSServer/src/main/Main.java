@@ -7,6 +7,8 @@ package main;
 
 import form.FrmMainServer;
 import form.FrmMainServer;
+import form.FrmSettings;
+import javax.swing.JFrame;
 import server.Server;
 
 /**
@@ -15,6 +17,7 @@ import server.Server;
  */
 public class Main {
     public static void main(String[] args) {
-        new FrmMainServer().setVisible(true);
+        new FrmSettings(new JFrame(), true).setVisible(true);
+       
     }
 }

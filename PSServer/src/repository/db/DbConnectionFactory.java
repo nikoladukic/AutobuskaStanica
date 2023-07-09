@@ -33,11 +33,12 @@ public class DbConnectionFactory {
     public Connection getConnection() throws Exception {
         if (connection == null || connection.isClosed()) {
             Properties properties = new Properties();
-            String url="jdbc:mysql://localhost:3306/autobuskastanica";
-            String user="root";
-            String pass="";
+            properties.load(new FileInputStream("config/dbconfig.properties"));
+            String url=properties.getProperty("url");
+            String username = properties.getProperty("username");
+            String password = properties.getProperty("password");
            
-            connection = DriverManager.getConnection(url, user, pass);
+            connection = DriverManager.getConnection(url, username, password);
             connection.setAutoCommit(false);
             System.err.println("Sve je u redu sa konekcijom");
 
