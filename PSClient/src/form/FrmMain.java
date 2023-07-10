@@ -551,7 +551,7 @@ public class FrmMain extends javax.swing.JFrame {
          List<Voznja> voznjePretrazene = new ArrayList<>();
          List<Mesto> mestaPretrazena = new ArrayList<>();
         try {
-            voznje = Communication.getInstance().ucitajListuVoznji();
+            voznje = Communication.getInstance().nadjiVoznju(new Voznja());
             List<Mesto> mesta = kreirajMestaPoRasporeduVoznji(voznje);
             for (int i = 0; i < voznje.size(); i++) {
                 if(voznje.get(i).getDatumPolaska().equals(datum) &&
@@ -560,9 +560,12 @@ public class FrmMain extends javax.swing.JFrame {
                     mestaPretrazena.add(mesta.get(i));
                 }
             }
-            
+            if(!voznjePretrazene.isEmpty()){
             TableModel model = new VoznjaTableModel(voznjePretrazene,mestaPretrazena);
             tableVoznje.setModel(model);
+            }else{
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da pronadje voznju po zadatom kriterijumu");
+            }
             
         } catch (Exception ex) {
             ex.printStackTrace();

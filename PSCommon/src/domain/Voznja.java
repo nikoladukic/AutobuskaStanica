@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author PC
  */
-public class Voznja implements Serializable{
+public class Voznja implements  GenericEntity{
     private Long voznjaID;
     private Date datumPolaska;
     private Time vremePolaska;
@@ -114,6 +114,26 @@ public class Voznja implements Serializable{
     @Override
     public String toString() {
         return "Voznja{" + "datumPolaska=" + datumPolaska + ", vremePolaska=" + vremePolaska + '}';
+    }
+
+    @Override
+    public String getTableName() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getInsertValues() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setId(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

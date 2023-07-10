@@ -141,6 +141,9 @@ public class Controller {
     public List<Voznja> UcitajListuVoznji() throws Exception {
         return repositoryVoznja.getAll();
     }
+     public List<Voznja> nadjiVoznju(Voznja voznja) throws Exception {
+        return repositoryVoznja.getAll(voznja);
+    }
     
     public List<VrstaAutobusa> UcitajListuVrstiAutobusa() throws Exception {
         return repositoryVrstaAutobusa.getAll();
@@ -148,7 +151,7 @@ public class Controller {
     public List<VrstaAutobusa> pretraziAutobus(Autobus autobus) throws Exception {
         return repositoryAutobus.getAll(autobus);
     }
-    public List<VrstaAutobusa> nadjiVozaca(Vozac vozac) throws Exception {
+    public List<Vozac> nadjiVozaca(Vozac vozac) throws Exception {
         return repositoryVozac.getAll(vozac);
     }
       public List<DestinacijaVoznje> UcitajListuDestinacija() throws Exception {

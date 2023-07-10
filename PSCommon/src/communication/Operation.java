@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Cartman
+ * @author pc
  */
 public enum Operation  implements Serializable{
     KreirajAutobus,

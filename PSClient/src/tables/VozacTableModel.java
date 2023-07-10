@@ -18,7 +18,6 @@ public class VozacTableModel extends AbstractTableModel{
 
     @Override
     public String getColumnName(int column) {
-        if (column>=columnNames.length) return "n/a";
         return columnNames[column]; 
     }
 

@@ -62,7 +62,11 @@ public class ProcessClientsRequests extends Thread {
                             break;
                         case UcitajListuVoznji:
                             response.setResult(Controller.getInstance().UcitajListuVoznji());
-                            break;    
+                            break;
+                        case NadjiVoznju :
+                            Voznja voznja1 = (Voznja) request.getArgument();
+                            response.setResult(Controller.getInstance().nadjiVoznju(voznja1));
+                            break;
                         case UcitajListuDestinacija:
                             response.setResult(Controller.getInstance().UcitajListuDestinacija());
                             break;  
@@ -107,16 +111,7 @@ public class ProcessClientsRequests extends Thread {
                             User user= (User)request.getArgument();
                             response.setResult(Controller.getInstance().logIn(user));
                             break;
-                         
-//                        case DELETE_PRODUCT:
-//                            Product productDelete = (Product) request.getArgument();
-//                            Controller.getInstance().deleteProduct(productDelete);
-//                            break;
-//                        case ADD_INVOICE:
-//                            Invoice invoiceInsert = (Invoice) request.getArgument();
-//                            Controller.getInstance().addInvoice(invoiceInsert);
-//                            response.setResult(invoiceInsert);
-//                            break;
+                   
                     }
                 } catch (Exception e) {
                     System.out.println("thread.ProcessClientsRequests.run()");

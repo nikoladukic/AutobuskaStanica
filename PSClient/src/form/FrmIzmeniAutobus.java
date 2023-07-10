@@ -211,7 +211,7 @@ public class FrmIzmeniAutobus extends javax.swing.JDialog {
             prepareIzmena();
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(this,"Broj mesta mora biti upisan kao broj!");
+            JOptionPane.showMessageDialog(this,"Sistem ne moze da zapamti autobus!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Greska pri izmeni autobusa!","Greska",JOptionPane.ERROR_MESSAGE);
             System.out.println(ex.getMessage());

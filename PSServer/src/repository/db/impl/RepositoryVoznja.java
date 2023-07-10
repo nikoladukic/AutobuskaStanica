@@ -25,7 +25,29 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
 
     @Override
     public List<Voznja> getAll(Voznja param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            String sql = "select * from voznja";
+            List<Voznja> voznje = new ArrayList<>();
+            Connection connection = DbConnectionFactory.getInstance().getConnection();
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                Voznja voznja = new Voznja();
+                voznja.setVoznjaID(rs.getLong("VoznjaID"));
+                voznja.setDatumPolaska(new java.util.Date(rs.getDate("DatumPolaska").getTime()));
+                voznja.setVremePolaska(rs.getTime("VremePolaska"));
+                voznja.setVozac(getVozacForJmbg(rs.getString("JMBG")));
+                voznja.setAutobus(getAutobusForRegBroj(rs.getString("RegBrojVozila")));
+                voznje.add(voznja);
+            }
+            rs.close();
+            statement.close();
+            return voznje;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override

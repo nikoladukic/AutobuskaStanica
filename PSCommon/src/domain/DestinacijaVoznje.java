@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author PC
  */
-public class DestinacijaVoznje implements Serializable{
+public class DestinacijaVoznje implements GenericEntity{
     int destinacijaID;
     Voznja voznja;
     Mesto mesto;
@@ -78,6 +78,26 @@ public class DestinacijaVoznje implements Serializable{
             return false;
         }
         return Objects.equals(this.mesto, other.mesto);
+    }
+
+    @Override
+    public String getTableName() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getInsertValues() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setId(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

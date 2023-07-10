@@ -208,21 +208,21 @@ public class FrmAutobus extends javax.swing.JDialog {
         String regBroj           = tbRegBroj.getText();
         
         if(brojMesta.length()<1){
-            JOptionPane.showMessageDialog(this, "Broj mesta mora biti duze od 0");
+            JOptionPane.showMessageDialog(this, "Ukucajte validan broj mesta");
             return;
         }
          if(godinaProzivodnje.length()!=4){
-            JOptionPane.showMessageDialog(this, "Godina proizovodnje mora biti duzine 4!");
+            JOptionPane.showMessageDialog(this, "Ukucajte validnu godinu.");
             return;
         }
         
          if (marka.length()< 2) {
-             JOptionPane.showMessageDialog(this, "Marka mora biti duza od 2");
+             JOptionPane.showMessageDialog(this, "Sistem ne moze da kreira autobuis. Sva polja morajui biti popunjena");
              return;    
          }
          
           if (regBroj.length()< 5) {
-             JOptionPane.showMessageDialog(this, "Registarki broj mora biti duzi od 5");
+             JOptionPane.showMessageDialog(this, "Reg broj mora biti duzi od 5");
              return;    
          }
     

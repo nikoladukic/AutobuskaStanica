@@ -4,13 +4,13 @@
  */
 package domain;
 
-import java.io.Serializable;
+
 
 /**
  *
  * @author PC
  */
-public class Autobus implements Serializable{
+public class Autobus implements GenericEntity{
     
     private String regBrojVozila;
     private String markaAutobusa;
@@ -72,6 +72,26 @@ public class Autobus implements Serializable{
     @Override
     public String toString() {
         return regBrojVozila + ", " + markaAutobusa + ", " + brojMesta ;
+    }
+
+    @Override
+    public String getTableName() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getInsertValues() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setId(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

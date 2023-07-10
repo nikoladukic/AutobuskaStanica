@@ -5,6 +5,7 @@
 package form;
 
 import communication.Communication;
+import domain.Autobus;
 import domain.Vozac;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -113,7 +114,6 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnIzmeni, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -132,6 +132,7 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
                     .addComponent(tbPrezime)
                     .addComponent(tbIme)
                     .addComponent(tbDatumRodjenja)))
+            .addComponent(btnIzmeni, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +212,7 @@ public class FrmIzmeniVozaca extends javax.swing.JDialog {
             prepareInputs();
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(this, "Radni staz vozaca mora biti broj");
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti vozaca");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(this, "Greska pri izmeni radnog staza vozaca!","Greska",JOptionPane.ERROR_MESSAGE);

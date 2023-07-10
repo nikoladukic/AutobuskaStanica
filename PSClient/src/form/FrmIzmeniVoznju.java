@@ -311,10 +311,8 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
              JOptionPane.showMessageDialog(this,"Uspesno izvrsena izmena voznje!");
              cbVoznje.removeAllItems();
              prepareInputs();
-
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Greska pri izmeni voznje!","Greska",JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(this, "Sistem ne moze da zapamti voznju!","Greska",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnIzmeniActionPerformed
 

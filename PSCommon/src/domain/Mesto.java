@@ -11,16 +11,18 @@ import java.util.Objects;
  *
  * @author PC
  */
-public class Mesto implements Serializable{
+public class Mesto implements GenericEntity{
     private int mestoID;
     private String naziv;
 
-    public int getMestoID() {
-        return mestoID;
+    
+    public Mesto(int mestoID, String naziv) {
+        this.mestoID = mestoID;
+        this.naziv = naziv;
     }
-
     public Mesto() {
     }
+    
 
     public void setMestoID(int mestoID) {
         this.mestoID = mestoID;
@@ -29,15 +31,15 @@ public class Mesto implements Serializable{
     public String getNaziv() {
         return naziv;
     }
+    public int getMestoID() {
+        return mestoID;
+    }
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
 
-    public Mesto(int mestoID, String naziv) {
-        this.mestoID = mestoID;
-        this.naziv = naziv;
-    }
+   
 
     @Override
     public int hashCode() {
@@ -68,6 +70,26 @@ public class Mesto implements Serializable{
     @Override
     public String toString() {
         return naziv;
+    }
+
+    @Override
+    public String getTableName() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getInsertValues() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void setId(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

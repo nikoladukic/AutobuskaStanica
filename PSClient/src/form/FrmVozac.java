@@ -284,9 +284,13 @@ public class FrmVozac extends javax.swing.JDialog {
         try {
             List<Vozac> vozaci=Communication.getInstance().nadjiVozaca(new Vozac(null,ime,prezime,null,0));
             TableModel model = new VozacTableModel(vozaci);
+            
+            
+            if(vozaci==null || vozaci.isEmpty()){
+              JOptionPane.showMessageDialog(this, "Sistem nije uspeo da pronadje vozaca po zadatoj vrednsoti!","Greska",JOptionPane.ERROR_MESSAGE);
+            }else{
+            JOptionPane.showMessageDialog(this, "Sistem je nasao vozace po zadatoj vrednsoti");
             jTableVozaci.setModel(model);
-            if(vozaci==null){
-              JOptionPane.showMessageDialog(this, "Greska pri ucitavanju vozaca, ne postoji!","Greska",JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -337,7 +341,7 @@ public class FrmVozac extends javax.swing.JDialog {
             jTableVozaci.setModel(model);
             
         } catch (Exception ex) {
-            ex.printStackTrace();
+            
         }
     }
 }

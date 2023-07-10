@@ -175,8 +175,8 @@ public class Communication {
             throw response.getException();
         }
     }
-    public List<Voznja> nadjiVoznju(String  mesto) throws Exception{
-        Request request=new Request(Operation.NadjiVoznju, mesto);
+    public List<Voznja> nadjiVoznju(Voznja  voznja) throws Exception{
+        Request request=new Request(Operation.NadjiVoznju, voznja);
         sender.send(request);
         Response response=(Response)receiver.receive();
         if(response.getException()==null){
