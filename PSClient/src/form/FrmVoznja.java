@@ -219,10 +219,13 @@ public class FrmVoznja extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajVoznjuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajVoznjuActionPerformed
-        validateInputs();
+        if(validateInputs()==false) return;
+        
         String hh=tbHours.getText();
         String mm=tbMinutes.getText();
         String ss=tbSecunds.getText();
+       
+        
         Time time=new Time(Integer.parseInt(hh), Integer.parseInt(mm), Integer.parseInt(ss));
         Voznja voznja = new Voznja();
         voznja.setVozac((Vozac)cbVozac.getSelectedItem());
@@ -268,29 +271,29 @@ public class FrmVoznja extends javax.swing.JDialog {
     private javax.swing.JTextField tbSecunds;
     // End of variables declaration//GEN-END:variables
 
-    private void validateInputs() {
+    private boolean validateInputs() {
         String hh=tbHours.getText();
         String mm=tbMinutes.getText();
         String ss=tbSecunds.getText();
         if(jdpDatumPolaska.getDate()==null){
             JOptionPane.showMessageDialog(this, "Morate izabrati datum voznje koju unosite");
-            return;
+            return false;
         }
          if(hh.isEmpty()||mm.isEmpty()||ss.isEmpty()){
             JOptionPane.showMessageDialog(this, "Obavezno je uneti vreme voznje");
-            return;
+            return false;
         }
          if(cbAutobus.getSelectedItem()==null ){
              JOptionPane.showMessageDialog(this, "Obavezno je uneti autobus");
-             return;
+             return false;
          }
          if(cbMestoDolaska.getSelectedItem()==null ){
              JOptionPane.showMessageDialog(this, "Obavezno je uneti mesto dolaska");
-             return;
+             return false;
          }
           if(cbVozac.getSelectedItem()==null ){
              JOptionPane.showMessageDialog(this, "Obavezno je uneti vozaca za voznju");
-             return;
+             return false;
          }
         try {
             int hours   = Integer.parseInt(hh); 
@@ -299,9 +302,12 @@ public class FrmVoznja extends javax.swing.JDialog {
             
             if(hours>24||hours<0||minutes<0||minutes>60||secunds>60||secunds<0){
              JOptionPane.showMessageDialog(this, "Vreme mora biti u validnom formatu HH:[0-24], MM:[0-60], SS:[0-60]");
+             return  false;
             }
+            return true;
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Vreme mora biti u validnom formatu HH:[0-24], MM:[0-60], SS:[0-60]");
+            return false;
         }
     }
         private void prepareComponents() {

@@ -118,23 +118,32 @@ public class Voznja implements  GenericEntity{
 
     @Override
     public String getTableName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "voznja";
     }
 
     @Override
     public String getColumnNamesForInsert() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "(datumpolaska,vremepolaska,jmbg,regBrojVozila)";
     }
 
     @Override
     public String getInsertValues() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "'" + (new java.sql.Date(getDatumPolaska().getTime())).toString()+"','"+vremePolaska+"','"+
+                getVozac().getJMBG()+"','"+getAutobus().getRegBrojVozila()+"'";
     }
 
     @Override
     public void setId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        setVoznjaID(id);
     }
+
+    @Override
+    public String getConditionForEdit() {
+        
+        return "DatumPolaska = '" + new java.sql.Date(getDatumPolaska().getTime()).toString()+"',VremePolaska= '"+
+                getVremePolaska()+"',JMBG = '"+getVozac().getJMBG()+"',RegBrojVozila='"+getAutobus().getRegBrojVozila()+
+                "'WHERE VoznjaID="+getVoznjaID() ; 
+        }
     
     
     

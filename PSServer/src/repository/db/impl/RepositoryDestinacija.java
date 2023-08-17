@@ -31,29 +31,20 @@ public class RepositoryDestinacija implements DbRepository<DestinacijaVoznje>{
     }
 
     @Override
-    public void add(DestinacijaVoznje destinacijaVoznje) throws Exception {
-        String sql = "INSERT INTO destinacijavoznje(voznjaid,mestoid) VALUES(?,?)";
-
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
-
-            PreparedStatement pstatement = connection.prepareStatement(sql);
-            
-            pstatement.setLong(1, destinacijaVoznje.getVoznja().getVoznjaID());
-            pstatement.setLong(2, destinacijaVoznje.getMesto().getMestoID());
-            pstatement.executeUpdate();
-            pstatement.close();
-        
+    public int add(DestinacijaVoznje destinacijaVoznje) throws Exception {
+       RepositoryDBGeneric dBGeneric = new RepositoryDBGeneric();
+        return  dBGeneric.add(destinacijaVoznje);
     }
     
 
     @Override
-    public void edit(DestinacijaVoznje destinacijaVoznje) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int edit(DestinacijaVoznje destinacijaVoznje) throws Exception {
+        return 1;
     }
 
     @Override
-    public void delete(DestinacijaVoznje destinacijaVoznje) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int delete(DestinacijaVoznje destinacijaVoznje) throws Exception {
+        return 1;
     }
 
     @Override

@@ -128,7 +128,6 @@ public class FrmSettings extends javax.swing.JDialog {
             props.store(out, null);
             out.close();
             JOptionPane.showMessageDialog(this, "Azurirana konfiguracija baze podataka!");
-            new FrmMainServer(new JFrame(), true).setVisible(true);
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Greska: " + e.getMessage());

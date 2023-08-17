@@ -76,22 +76,30 @@ public class Autobus implements GenericEntity{
 
     @Override
     public String getTableName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        return "Autobus";
+
     }
 
     @Override
     public String getColumnNamesForInsert() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        return "(RegBrojVozila,MarkaAutobusa,GodinaProizvodnje,BrojMesta,VrstaAutobusa)";
+        }
 
     @Override
     public String getInsertValues() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "'"+getRegBrojVozila()+"','"+getMarkaAutobusa()+"',"+getGodinaProizvodnje()+","+
+                getBrojMesta()+","+getVrstaAutobusa().getVrstaAutobusaID();
     }
 
     @Override
     public void setId(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getConditionForEdit() {
+        return "BrojMesta = " +getBrojMesta()+" WHERE RegBrojVozila= '"+getRegBrojVozila()+"'";
     }
     
     

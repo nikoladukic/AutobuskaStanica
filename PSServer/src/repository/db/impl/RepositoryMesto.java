@@ -29,26 +29,19 @@ public class RepositoryMesto implements DbRepository<Mesto>{
     }
 
     @Override
-    public void add(Mesto mesto) throws Exception {
-         String sql = "INSERT into Mesto VALUES (?,?)";
-
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
-
-            PreparedStatement pstatement = connection.prepareStatement(sql);
-            pstatement.setInt(1, mesto.getMestoID());
-            pstatement.setString(2, mesto.getNaziv());
-            pstatement.executeUpdate();
-            pstatement.close();
+    public int add(Mesto mesto) throws Exception {
+         RepositoryDBGeneric dBGeneric = new RepositoryDBGeneric();
+         return dBGeneric.add(mesto);
     }
 
     @Override
-    public void edit(Mesto param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int edit(Mesto param) throws Exception {
+        return 1;
     }
 
     @Override
-    public void delete(Mesto param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int delete(Mesto param) throws Exception {
+        return 1;
     }
 
     @Override

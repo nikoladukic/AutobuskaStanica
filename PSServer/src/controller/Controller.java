@@ -7,7 +7,6 @@ package controller;
 
 import java.util.List;
 import domain.*;
-import operation.AbstractGenericOperation;
 import repository.Repository;
 import repository.db.DbRepository;
 import repository.db.impl.RepositoryAutobus;

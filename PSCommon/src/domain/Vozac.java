@@ -116,22 +116,30 @@ public class Vozac implements GenericEntity{
 
     @Override
     public String getTableName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        return "vozac";
     }
 
     @Override
     public String getColumnNamesForInsert() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "(jmbg,ime,prezime,datumrodjenja,radnistaz)";
     }
 
+    
     @Override
     public String getInsertValues() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         return "'"+getJMBG()+"','"+getIme()+"','"+getPrezime()+"','"+
+                (new java.sql.Date(getDatumRodjenja().getTime())).toString()+"',"+getRadniStaz();
     }
 
     @Override
     public void setId(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String getConditionForEdit() {
+        return "RadniStaz = " + getRadniStaz()+ " WHERE JMBG= '"+getJMBG()+"';";
     }
     
     

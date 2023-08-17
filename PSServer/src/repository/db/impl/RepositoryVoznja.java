@@ -51,47 +51,21 @@ public class RepositoryVoznja implements DbRepository<Voznja>{
     }
 
     @Override
-    public void add(Voznja voznja) throws Exception {
-         String sql = "INSERT INTO voznja(datumpolaska,vremepolaska,jmbg,regBrojVozila) VALUES(?,?,?,?)";
-
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
-
-            PreparedStatement pstatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            pstatement.setDate(1, new java.sql.Date(voznja.getDatumPolaska().getTime()));
-            pstatement.setTime(2, voznja.getVremePolaska());
-            pstatement.setString(3, voznja.getVozac().getJMBG());
-            pstatement.setString(4, voznja.getAutobus().getRegBrojVozila());
-            pstatement.executeUpdate();
-            
-            ResultSet resKey = pstatement.getGeneratedKeys();
-            while(resKey.next()){
-            long voznjaID = resKey.getLong(1);
-            voznja.setVoznjaID(voznjaID);
-            }
-            
-            pstatement.close();
+    public int add(Voznja voznja) throws Exception {
+         RepositoryDBGeneric dBGeneric = new RepositoryDBGeneric();
+         return dBGeneric.add(voznja);
     }
 
     
     @Override
-    public void edit(Voznja voznja) throws Exception {
-        String sql = "UPDATE voznja SET DatumPolaska = ?,VremePolaska=?,JMBG = ?,RegBrojVozila=? WHERE VoznjaID= ? ";
-
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
-
-            PreparedStatement pstatement = connection.prepareStatement(sql);
-            pstatement.setDate(1, new java.sql.Date(voznja.getDatumPolaska().getTime()));
-            pstatement.setTime(2, voznja.getVremePolaska());
-            pstatement.setString(3, voznja.getVozac().getJMBG());
-            pstatement.setString(4, voznja.getAutobus().getRegBrojVozila());
-            pstatement.setLong(5, voznja.getVoznjaID());
-            pstatement.executeUpdate();
-           
-            pstatement.close();
+    public int edit(Voznja voznja) throws Exception {
+        
+            RepositoryDBGeneric dBGeneric = new RepositoryDBGeneric();
+            return dBGeneric.edit(voznja);
     }
 
     @Override
-    public void delete(Voznja param) throws Exception {
+    public int delete(Voznja param) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

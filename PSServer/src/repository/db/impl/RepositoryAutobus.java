@@ -51,37 +51,23 @@ public class RepositoryAutobus implements DbRepository<Autobus>{
     }
 
     @Override
-    public void add(Autobus autobus) throws Exception {
-         String sql = "INSERT into Autobus VALUES (?,?,?,?,?)";
-
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
-
-            PreparedStatement pstatement = connection.prepareStatement(sql);
-            pstatement.setString(1, autobus.getRegBrojVozila());
-            pstatement.setString(2, autobus.getMarkaAutobusa());
-            pstatement.setInt(3, autobus.getGodinaProizvodnje());
-            pstatement.setInt(4, autobus.getBrojMesta());
-            pstatement.setLong(5, autobus.getVrstaAutobusa().getVrstaAutobusaID());
-            pstatement.executeUpdate();
-            pstatement.close();
+    public int add(Autobus autobus) throws Exception {
+        
+         RepositoryDBGeneric dBGeneric = new RepositoryDBGeneric();
+         return dBGeneric.add(autobus);
+         
     }
 
     @Override
-    public void edit(Autobus autobus) throws Exception {
-         String sql = "UPDATE autobus SET BrojMesta = ? WHERE RegBrojVozila= ? ";
-
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
-
-            PreparedStatement pstatement = connection.prepareStatement(sql);
-            pstatement.setInt(1, autobus.getBrojMesta());
-            pstatement.setString(2, autobus.getRegBrojVozila());
-            pstatement.executeUpdate();
-            pstatement.close();
+    public int edit(Autobus autobus) throws Exception {
+         
+            RepositoryDBGeneric dBGeneric = new RepositoryDBGeneric();
+            return dBGeneric.edit(autobus);
     }
 
     @Override
-    public void delete(Autobus param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int delete(Autobus param) throws Exception {
+        return 1;
     }
 
     @Override

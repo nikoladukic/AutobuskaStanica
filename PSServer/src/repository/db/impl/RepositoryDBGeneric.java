@@ -21,13 +21,12 @@ import repository.db.DbRepository;
 public class RepositoryDBGeneric implements DbRepository<GenericEntity> {
 
     @Override
-    public void add(GenericEntity entity) throws Exception {
+    public int add(GenericEntity entity) throws Exception {
         try {
             Connection connection = DbConnectionFactory.getInstance().getConnection();
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ")
                     .append(entity.getTableName())
-                    .append(" (").append(entity.getColumnNamesForInsert()).append(")")
                     .append(" VALUES (")
                     .append(entity.getInsertValues())
                     .append(")");
@@ -42,23 +41,49 @@ public class RepositoryDBGeneric implements DbRepository<GenericEntity> {
             }
             statement.close();
             rsKey.close();
+            return 1;
         } catch (SQLException ex) {
-            throw ex;
+            System.out.println(ex.getMessage());
+            return 0;
         }
     }
 
     @Override
-    public List<GenericEntity> getAll(GenericEntity param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<GenericEntity> getAll(GenericEntity entity) throws Exception {
+        return null;
     }
 
     @Override
-    public void edit(GenericEntity param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int edit(GenericEntity entity) throws Exception {
+    try {
+            Connection connection = DbConnectionFactory.getInstance().getConnection();
+            StringBuilder sb = new StringBuilder();
+            sb.append("UPDATE ")
+                    .append(entity.getTableName())
+                    .append(" SET ")
+                    .append(entity.getConditionForEdit());
+            String query = sb.toString();
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rsKey = statement.getGeneratedKeys();
+            if (rsKey.next()) {
+                Long id = rsKey.getLong(1);
+                entity.setId(id);
+            }
+            statement.close();
+            rsKey.close();
+            return 1;
+        } catch (SQLException ex) {
+            
+            System.out.println(ex.getMessage());
+            return 0;
+        }
+    
+    
     }
-
     @Override
-    public void delete(GenericEntity param) throws Exception {
+    public int delete(GenericEntity param) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

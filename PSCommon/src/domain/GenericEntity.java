@@ -6,6 +6,8 @@
 package domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.util.List;
 
 /**
  *
@@ -18,7 +20,13 @@ public interface GenericEntity extends Serializable {
     String getColumnNamesForInsert();
 
     String getInsertValues();
-
+    
     void setId(Long id);
+
+    String getConditionForEdit();
+
+
+   
+
 
 }

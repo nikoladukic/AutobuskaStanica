@@ -10,8 +10,8 @@ import java.util.List;
 public interface Repository<T> {
     List<T> getAll(T param) throws Exception;
     T addAndReturn(T param) throws Exception;
-    void add(T param) throws Exception;
-    void edit(T param) throws Exception;
-    void delete(T param)throws Exception;
+    int add(T param) throws Exception;
+    int edit(T param) throws Exception;
+    int delete(T param)throws Exception;
     List<T> getAll();
 }

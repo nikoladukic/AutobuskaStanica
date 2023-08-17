@@ -13,10 +13,6 @@ import java.util.List;
 import repository.db.DbConnectionFactory;
 import repository.db.DbRepository;
 
-/**
- *
- * @author PC
- */
 public class RepositoryVrstaAutobus implements DbRepository<VrstaAutobusa>{
 
     @Override
@@ -25,18 +21,18 @@ public class RepositoryVrstaAutobus implements DbRepository<VrstaAutobusa>{
     }
 
     @Override
-    public void add(VrstaAutobusa autobus) throws Exception {
-         
+    public int add(VrstaAutobusa autobus) throws Exception {
+         return 1;
     }
 
     @Override
-    public void edit(VrstaAutobusa param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int edit(VrstaAutobusa param) throws Exception {
+        return 1;
     }
 
     @Override
-    public void delete(VrstaAutobusa param) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int delete(VrstaAutobusa param) throws Exception {
+        return 1;
     }
 
     @Override

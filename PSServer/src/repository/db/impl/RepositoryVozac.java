@@ -49,36 +49,20 @@ public class RepositoryVozac implements DbRepository<Vozac>{
     }
 
     @Override
-    public void add(Vozac vozac) throws Exception {
-         String sql = "INSERT into Vozac VALUES (?,?,?,?,?)";
-
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
-
-            PreparedStatement pstatement = connection.prepareStatement(sql);
-            pstatement.setString(1, vozac.getJMBG());
-            pstatement.setString(2, vozac.getIme());
-            pstatement.setString(3, vozac.getPrezime());
-            pstatement.setDate(4, new java.sql.Date(vozac.getDatumRodjenja().getTime()));
-            pstatement.setInt(5, vozac.getRadniStaz());
-            pstatement.executeUpdate();
-            pstatement.close();
+    public int add(Vozac vozac) throws Exception {
+         RepositoryDBGeneric dBGeneric = new RepositoryDBGeneric();
+         return dBGeneric.add(vozac);
+           
     }
 
     @Override
-    public void edit(Vozac vozac) throws Exception {
-        String sql = "UPDATE vozac SET RadniStaz = ? WHERE JMBG= ? ";
-
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
-
-            PreparedStatement pstatement = connection.prepareStatement(sql);
-            pstatement.setInt(1, vozac.getRadniStaz());
-            pstatement.setString(2, vozac.getJMBG());
-            pstatement.executeUpdate();
-            pstatement.close();
+    public int edit(Vozac vozac) throws Exception {
+        RepositoryDBGeneric dBGeneric = new RepositoryDBGeneric();
+        return  dBGeneric.edit(vozac);
     }
 
     @Override
-    public void delete(Vozac param) throws Exception {
+    public int delete(Vozac param) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

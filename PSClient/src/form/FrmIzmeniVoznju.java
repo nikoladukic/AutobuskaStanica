@@ -294,7 +294,8 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
 
     private void btnIzmeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzmeniActionPerformed
             
-        validateInputs();
+        if(validateInputs()==false)return;
+        
         int hours   = Integer.parseInt(tbHours.getText()); 
         int minutes = Integer.parseInt(tbMinutes.getText()); 
         int secunds = Integer.parseInt(tbSecundes.getText()); 
@@ -369,26 +370,26 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
         }
     }
     
-    private void validateInputs() {
+   private boolean validateInputs() {
         String hh=tbHours.getText();
         String mm=tbMinutes.getText();
         String ss=tbSecundes.getText();
         if(jdpDatumPolaska.getDate()==null){
             JOptionPane.showMessageDialog(this, "Morate izabrati datum voznje koju unosite");
-            return;
+            return false;
         }
          if(hh.isEmpty()||mm.isEmpty()||ss.isEmpty()){
             JOptionPane.showMessageDialog(this, "Obavezno je uneti vreme voznje");
-            return;
+            return false;
         }
          if(cbAutobus.getSelectedItem()==null ){
              JOptionPane.showMessageDialog(this, "Obavezno je uneti autobus");
-             return;
+             return false;
          }
          
           if(cbVozac.getSelectedItem()==null ){
              JOptionPane.showMessageDialog(this, "Obavezno je uneti vozaca za voznju");
-             return;
+             return false;
          }
         try {
             int hours   = Integer.parseInt(hh); 
@@ -397,9 +398,12 @@ public class FrmIzmeniVoznju extends javax.swing.JDialog {
             
             if(hours>24||hours<0||minutes<0||minutes>60||secunds>60||secunds<0){
              JOptionPane.showMessageDialog(this, "Vreme mora biti u validnom formatu HH:[0-24], MM:[0-60], SS:[0-60]");
+             return  false;
             }
+            return true;
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Vreme mora biti u validnom formatu HH:[0-24], MM:[0-60], SS:[0-60]");
+            return false;
         }
     }
 }

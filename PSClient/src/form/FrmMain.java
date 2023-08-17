@@ -560,8 +560,10 @@ public class FrmMain extends javax.swing.JFrame {
                     mestaPretrazena.add(mesta.get(i));
                 }
             }
-            if(!voznjePretrazene.isEmpty()){
             TableModel model = new VoznjaTableModel(voznjePretrazene,mestaPretrazena);
+            tableVoznje.setModel(model);
+            if(!voznjePretrazene.isEmpty()){
+             model = new VoznjaTableModel(voznjePretrazene,mestaPretrazena);
             tableVoznje.setModel(model);
             }else{
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da pronadje voznju po zadatom kriterijumu");
